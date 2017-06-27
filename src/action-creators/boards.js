@@ -18,13 +18,3 @@ export function addBoard(boardName = 'New Board') {
     }
 }
 
-export function addColumn(columnName, order) {
-    return {
-        type: ADD_COLUMN,
-        payload: {
-            id: +(new Date()),
-            name: columnName,
-            order:order
-        }
-    }
-}

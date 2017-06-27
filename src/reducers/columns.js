@@ -9,12 +9,15 @@ let columnsInitialState = [
 // }
 ];
 
-export  default function (store = columnsInitialState, action) {
+export  default function (columns = columnsInitialState, action) {
     switch (action.type) {
-        // case 'ADD_BOARD':
-        //     return [...store.boards, {name: action.payload, columns: [],}]
+        case 'ADD_COLUMN':
+            // console.log(action.payload, store.columns);
+            // console.log([...store.columns, action.payload]);
+            return [...columns, action.payload];
+            // return [...store.columns, action.payload];
         // case 'REMOVE_BOARD':
         default:
-            return store;
+            return columns;
     }
 }
