@@ -31,8 +31,6 @@ export  default function (boards = BoardsInitialState, action) {
             let index = newBoards.boardIdList.indexOf(action.payload);
             let removingId = newBoards.boardIdList[index];
             delete newBoards.boards[removingId];
-
-            //TODO: remove all cards and columns
             newBoards.boardIdList.splice(index, 1);
             return newBoards;
 

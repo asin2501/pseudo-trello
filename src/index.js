@@ -7,24 +7,17 @@ import {syncHistoryWithStore} from 'react-router-redux';
 
 import './styles/index.css';
 
-
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from './reducers';
-import LocalStore from './components/local-store';
-
+import store from './store';
 import BoardsList from './components/boards-list';
 import Board from './components/board';
 import Card from './components/card';
 
 
-const localStore = new LocalStore('trello-local-store');
 
-let store = createStore(reducer, localStore.get(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const history = syncHistoryWithStore(hashHistory, store);
 
-localStore.subscribe(store);
 
 ReactDOM.render(
     <Provider store={store}>

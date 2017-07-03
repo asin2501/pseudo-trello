@@ -13,6 +13,7 @@ export function addColumn(columnName = 'New Column', boardID = 1) {
             id: +(new Date()),
             name: columnName,
             boardId: boardID,
+            order:1,
             cards: []
         }
     };
