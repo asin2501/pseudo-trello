@@ -15,6 +15,7 @@ import LocalStore from './components/local-store';
 
 import BoardsList from './components/boards-list';
 import Board from './components/board';
+import Card from './components/card';
 
 
 const localStore = new LocalStore('trello-local-store');
@@ -30,7 +31,9 @@ ReactDOM.render(
         <Router history={history}>
             <Route path="/" component={App}>
                 <IndexRoute component={BoardsList}/>
-                <Route path="board/:id" component={Board}/>
+                <Route path="board/:boardId" component={Board}>
+                    <Route path=":cardId" component={Card}/>
+                </Route>
             </Route>
         </Router>
     </Provider>, document.getElementById('root'));

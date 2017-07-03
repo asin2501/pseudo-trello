@@ -1,0 +1,14 @@
+.board{
+    padding-right:20px;
+    padding-left:20px;
+}
+.board__columns-wrap{
+    padding-right:5px;
+    padding-left:5px;
+}
+
+.board__columns{
+    display: flex;
+    margin-right:-5px;
+    margin-left:-5px;
+}

@@ -8,13 +8,21 @@ const RENAME_BOARD = 'RENAME_BOARD';
 
 const ADD_COLUMN = 'ADD_COLUMN';
 
-export function addBoard(boardName = 'New Board') {
+export function addBoardAction(boardName = 'New Board') {
     return {
         type: ADD_BOARD,
         payload: {
             id: +(new Date()),
-            name: boardName
+            name: boardName,
+            columns:[]
         }
+    }
+}
+
+export function removeBoardAction(id) {
+    return {
+        type: REMOVE_BOARD,
+        payload: id
     }
 }
 

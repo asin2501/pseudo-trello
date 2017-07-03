@@ -7,13 +7,20 @@ const RENAME_COLUMN = 'RENAME_COLUMN';
 const MOOVE_COLUMN = 'MOOVE_COLUMN';
 
 export function addColumn(columnName = 'New Column', boardID = 1) {
-    // console.log('----------', columnName, boardID);
     return {
         type: ADD_COLUMN,
         payload: {
             id: +(new Date()),
             name: columnName,
-            boardId: boardID
+            boardId: boardID,
+            cards: []
         }
+    };
+}
+
+export function removeColumnAction(columnID) {
+    return {
+        type: REMOVE_COLUMN,
+        payload: columnID
     };
 }

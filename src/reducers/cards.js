@@ -4,7 +4,7 @@
 /**
  * Created by user on 12.06.2017.
  */
-let cardsInitialState = [
+let cardsInitialState = {
 //     {
 //     id:'1',
 //     name:'First card',
@@ -12,14 +12,13 @@ let cardsInitialState = [
 //     columnId:1,
 //     order:1
 // }
-];
+};
 
-export  default function (store = cardsInitialState, action) {
+export  default function (cards = cardsInitialState, action) {
     switch (action.type) {
-        // case 'ADD_BOARD':
-        //     return [...store.boards, {name: action.payload, columns: [],}]
-        // case 'REMOVE_BOARD':
+        case 'ADD_CARD':
+            return Object.assign({}, cards, {[action.payload.id]:action.payload});
         default:
-            return store;
+            return cards;
     }
 }

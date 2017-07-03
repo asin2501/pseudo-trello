@@ -2,7 +2,7 @@
  * Created by 2501 on 26.06.2017.
  */
 import React, {Component} from 'react';
-import {addBoard} from '../action-creators/boards';
+import {addBoardAction} from '../action-creators/boards';
 import {connect} from 'react-redux';
 
 
@@ -32,6 +32,6 @@ class AddBoardForm extends Component {
 export default connect(
     null,
     dispatch => ({
-        addBoard: boardName => dispatch(addBoard(boardName))
+        addBoard: boardName => dispatch(addBoardAction(boardName))
     })
 )(AddBoardForm);

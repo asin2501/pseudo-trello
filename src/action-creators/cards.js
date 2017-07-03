@@ -7,13 +7,13 @@ const REMOVE_CARD = 'REMOVE_CARD';
 const RENAME_CARD = 'RENAME_CARD';
 const MOOVE_CARD = 'MOOVE_CARD';
 
-export function addCard(cardName = 'New Card', column = 0) {
+export function addCardAction( columnId = 0, cardTitle = 'New Card') {
     return {
         type: ADD_CARD,
         payload: {
             id: +(new Date()),
-            name: cardName,
-            column: column
+            cardTitle: cardTitle,
+            columnId: columnId
         }
     }
 }
