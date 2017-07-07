@@ -31,8 +31,7 @@ class Board extends Component {
     render() {
         return (
             <div className="board">
-                <div className="board-name">{this.props.board.name}</div>
-                This is board
+                <h2 className="board__name">{this.props.board.name}</h2>
                 <div className="board__inner-wrapper">
                     <div className="board__columns">
                         {this.renderColumns()}

@@ -1,0 +1,21 @@
+.add-card-form{
+    padding-top:10px;
+    display: none;
+}
+
+.add-card-form--showed{
+    display: block;
+}
+
+.add-card-form__input{
+    width:100%;
+    border-radius:3px;
+    padding:15px 10px;
+    box-sizing: border-box;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+    resize: none;
+    margin-bottom:5px;
+
+}

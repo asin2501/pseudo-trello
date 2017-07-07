@@ -12,7 +12,7 @@ export function addCardAction( columnId = 0, cardTitle = 'New Card') {
         type: ADD_CARD,
         payload: {
             id: +(new Date()),
-            cardTitle: cardTitle,
+            title: cardTitle,
             columnId: columnId
         }
     }

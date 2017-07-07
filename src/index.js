@@ -6,6 +6,7 @@ import {Route, Router, hashHistory, IndexRoute} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 
 import './styles/index.css';
+import './styles/blocks/btn.css';
 
 import {Provider} from 'react-redux';
 import store from './store';

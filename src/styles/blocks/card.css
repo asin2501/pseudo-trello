@@ -1,0 +1,18 @@
+.card{
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius:3px;
+    padding: 15px 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.card + .card{
+    margin-top:10px;
+}
+
+.card__title{
+    text-transform: uppercase;
+    margin-top:0;
+    font-size:11px;
+    margin-bottom:10px;
+    /*font-weight:normal;*/
+}

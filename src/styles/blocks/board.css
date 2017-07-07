@@ -12,3 +12,11 @@
     margin-right:-5px;
     margin-left:-5px;
 }
+
+.board__name{
+    opacity: 0.8;
+    margin-bottom:0;
+    text-transform: uppercase;
+    font-size:20px;
+    padding-bottom:20px;
+}
