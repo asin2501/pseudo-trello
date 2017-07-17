@@ -9,6 +9,7 @@ import { Link } from 'react-router'
 import Popup from "./components/popup";
 import AddBoardForm from "./components/addBoardForm";
 
+
 const addBoardPopupProps = {
     header: 'Add board',
     openEvent: 'addToCartPopupOpen'
@@ -48,6 +49,6 @@ class App extends Component {
 export default connect(
     state => ({state: state}),
     dispatch => ({
-        addBoard: boardName => dispatch({type:'ADD_BOARD', payload: boardName})
+        addBoard: boardName => dispatch({type:'ADD_BOARD', payload: boardName}),
     })
 )(App);

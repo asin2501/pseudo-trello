@@ -5,7 +5,7 @@
  * Created by user on 12.06.2017.
  */
 import store from '../store';
-
+import helpers from '../utils/helpers';
 
 let cardsInitialState = {
 //     {
@@ -21,15 +21,18 @@ let cardsInitialState = {
 export  default function (cards = cardsInitialState, action) {
     switch (action.type) {
         case 'ADD_CARD':
-            return Object.assign({}, cards, {[action.payload.id]: action.payload});
+            return addCard(cards, action);
         case 'REMOVE_BOARD':
             return removeBoard(cards, action);
-            return cards;
-
-            break;
         default:
             return cards;
     }
+}
+
+function addCard(cards, action) {
+    let newCards = helpers.copyObject(cards);
+    newCards[action.payload.id] = action.payload;
+    return newCards[action.payload.id];
 }
 
 function removeBoard(cards, action) {
@@ -38,8 +41,7 @@ function removeBoard(cards, action) {
     let deletingCards = deletingColumnsIDList.reduce((deletingCardsIdList, columnId) => {
         return [...deletingCardsIdList, ...store.getState().columns[columnId].cards];
     }, []);
-    debugger;
-    let newCards = Object.assign({}, cards);
+    let newCards = helpers.copyObject(cards);
     deletingCards.forEach(cardId => {
         delete newCards[cardId]
     });

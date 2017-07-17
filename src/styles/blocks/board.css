@@ -2,15 +2,19 @@
     padding-right:20px;
     padding-left:20px;
 }
-.board__columns-wrap{
-    padding-right:5px;
-    padding-left:5px;
+.board__column-wrap{
+    display: inline-block;
+    vertical-align: top;
+}
+.board__column-wrap+.board__column-wrap{
+    margin-left:10px;
 }
 
 .board__columns{
-    display: flex;
-    margin-right:-5px;
-    margin-left:-5px;
+    /*display: flex;*/
+    /*margin-right:-5px;*/
+    /*margin-left:-5px;*/
+    /*align-items:flex-start;*/
 }
 
 .board__name{

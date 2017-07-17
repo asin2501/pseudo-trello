@@ -5,14 +5,15 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.card + .card{
-    margin-top:10px;
+.card {
+    /*margin-top:10px;*/
+    margin-bottom:10px;
 }
 
 .card__title{
     text-transform: uppercase;
     margin-top:0;
     font-size:11px;
-    margin-bottom:10px;
+    margin-bottom:5px;
     /*font-weight:normal;*/
 }

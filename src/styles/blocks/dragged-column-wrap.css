@@ -1,0 +1,17 @@
+.dragged-column-wrap{
+    position: fixed;
+    transition: transform 300ms;
+    /*transition: transform 300ms, top 100ms linear, left 100ms linear;*/
+    /*transform: rotateZ(0);*/
+    transform-origin:50% 0 ;
+    transform: rotateZ(-3deg);
+    will-change: top, left;
+}
+
+.dragged-column-wrap--activate-transition{
+    transition: transform 300ms, top 80ms linear, left 80ms linear;
+}
+
+/*.dragged-column-wrap{*/
+
+/*}*/

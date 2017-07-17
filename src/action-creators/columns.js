@@ -4,7 +4,7 @@
 const ADD_COLUMN = 'ADD_COLUMN';
 const REMOVE_COLUMN = 'REMOVE_COLUMN';
 const RENAME_COLUMN = 'RENAME_COLUMN';
-const MOOVE_COLUMN = 'MOOVE_COLUMN';
+const UPDATE_COLUMN_ORDER = 'UPDATE_COLUMN_ORDER';
 
 export function addColumn(columnName = 'New Column', boardID = 1) {
     return {
@@ -13,8 +13,8 @@ export function addColumn(columnName = 'New Column', boardID = 1) {
             id: +(new Date()),
             name: columnName,
             boardId: boardID,
-            order:1,
-            cards: []
+            order:0,
+            cards:[]
         }
     };
 }
@@ -23,5 +23,15 @@ export function removeColumnAction(columnID) {
     return {
         type: REMOVE_COLUMN,
         payload: columnID
+    };
+}
+
+export function updateColumnOrder(columnId, boardId) {
+    return {
+        type: UPDATE_COLUMN_ORDER,
+        payload: {
+            columnId:columnId,
+            order:boardId
+        }
     };
 }

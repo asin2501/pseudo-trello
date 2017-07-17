@@ -5,13 +5,15 @@ import {combineReducers} from 'redux';
 import cardsReducer from './cards';
 import boardsReducer from './boards';
 import columnsReducer from './columns';
+import appStateReducer from './app-state';
 import { routerReducer } from 'react-router-redux';
 
 export default combineReducers({
     routing: routerReducer,
     boards:boardsReducer,
     cards:cardsReducer,
-    columns:columnsReducer
+    columns:columnsReducer,
+    appState:appStateReducer
 });
 
 

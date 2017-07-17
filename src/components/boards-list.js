@@ -35,7 +35,6 @@ class BoardList extends Component {
                 <div className="board-list">
                     {
                         this.props.boards.map((item) => {
-                            console.log(item);
                             return (
                                 <div key={item.id} className="board-list__item-wrap">
                                     <div onClick={this.move.bind(this, item.id)} className="board-list__item">

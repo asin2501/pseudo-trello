@@ -4,12 +4,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {addColumn} from '../action-creators/columns';
-import Column from '../components/column';
+import Column from './column';
+import classNames from 'classnames';
+import DraggedColumn from './dragged-column';
 
 import '../styles/blocks/board.css'
+import '../styles/blocks/add-column-form.css'
 
 
 class Board extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {addColumnForm: false};
+    }
+
     addBoardClickHandler() {
         let columnName = this.addColumnInput.value.trim();
         if (columnName) {
@@ -18,49 +26,87 @@ class Board extends Component {
         }
     }
 
+
     renderColumns() {
-        return this.props.columns.map((item) => {
+        return this.props.sortedColumnsIdMap.map((columnId) => {
             return (
-                <div key={item.id} className="board__columns-wrap">
-                    <Column data={item}/>
+                <div key={columnId} className="board__column-wrap">
+                    <Column id={columnId}/>
                 </div>
             )
         });
     }
 
+    toggleAddCartForm() {
+        this.setState({addColumnForm: !this.state.addColumnForm});
+    }
+
+    componentDidUpdate() {
+        if (this.state.addColumnForm) {
+            this.addColumnInput.focus();
+        }
+    }
+
     render() {
+        let addColumnFormClasses = classNames('board__add-column-form add-column-form', {'add-column-form--showed': this.state.addColumnForm});
+        // let addColumnFormClasses = classNames('board__add-column-form add-column-form', 'add-column-form--showed');
         return (
             <div className="board">
                 <h2 className="board__name">{this.props.board.name}</h2>
                 <div className="board__inner-wrapper">
                     <div className="board__columns">
                         {this.renderColumns()}
+                        <div className={addColumnFormClasses}>
+                            <span
+                                onClick={this.toggleAddCartForm.bind(this)}
+                                className="add-column-form__placeholder"
+                            >Add column...</span>
+                            <div className="add-column-form__inner">
+                                <input
+                                    className="add-column-form__input"
+                                    type="text"
+                                    ref={(input) => {
+                                        this.addColumnInput = input
+                                    }}
+                                />
+                                <button
+                                    className="btn add-column-form_btn"
+                                    onClick={this.addBoardClickHandler.bind(this)}
+                                >Add column
+                                </button>
+                                <button onClick={this.toggleAddCartForm.bind(this)}
+                                        className="btn-close add-column-form_btn">x
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <input type="text" ref={(input) => {
-                        this.addColumnInput = input
-                    }}/>
-                    <button onClick={this.addBoardClickHandler.bind(this)}>add column</button>
-                </div>
+                <DraggedColumn/>
                 {this.props.children}
             </div>
         );
     }
 }
 
-let mapStateToProps = (state, ownProps) => {
-    let currentBoard = state.boards.boards[ownProps.params.boardId];
-    return {
-        board: currentBoard,
-        columns: currentBoard.columns.map(columnId => state.columns[columnId])
-    };
-};
-
 export default connect(
-    mapStateToProps,
+    (state, ownProps) => {
+        let currentBoard = state.boards.boards[ownProps.params.boardId];
+        let sortedColumnsIdMap = currentBoard.columns.map(
+            columnId => state.columns[columnId]
+        ).sort(
+            (a, b) => + a.order - b.order
+        ).map(
+            column=>column.id
+        );
+
+        // console.log(sortedColumnsIdMap);
+
+        return {
+            board: currentBoard,
+            sortedColumnsIdMap: sortedColumnsIdMap
+        };
+    },
     dispatch => ({
-        //addBoard: boardName => dispatch({type: 'ADD_BOARD', payload: boardName})
         addColumn: (boardName, boardID) => {
             dispatch(addColumn(boardName, boardID))
         }

@@ -22,7 +22,6 @@ class LocalStore {
 
     subscribe(store) {
         store.subscribe(() => {
-            console.log(111);
             this.set(store.getState());
         });
     }
