@@ -16,6 +16,12 @@ export  default function (appState = appInitialState, action) {
         case 'UNSET_DRAGGED_COLUMN':
             return unsetDraggedColumn(appState, action);
             break;
+        case 'SET_DRAGGED_CARD':
+            return setDraggedCard(appState, action);
+            break;
+        case 'UNSET_DRAGGED_CARD':
+            return unsetDraggedCard(appState, action);
+            break;
         default:
             return appState;
     }
@@ -30,5 +36,17 @@ function setDraggedColumn(appState, action) {
 function unsetDraggedColumn(appState, action) {
     let newAppState = helpers.copyObject(appState);
     newAppState.draggedColumn = false;
+    return newAppState;
+}
+
+function setDraggedCard(appState, action) {
+    let newAppState = helpers.copyObject(appState);
+    newAppState.draggedCard = action.payload;
+    return newAppState;
+}
+
+function unsetDraggedCard(appState, action) {
+    let newAppState = helpers.copyObject(appState);
+    newAppState.draggedCard = false;
     return newAppState;
 }

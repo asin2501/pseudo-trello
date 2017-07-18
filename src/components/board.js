@@ -7,7 +7,13 @@ import {addColumn} from '../action-creators/columns';
 import Column from './column';
 import classNames from 'classnames';
 import DraggedColumn from './dragged-column';
+import DraggedCard from './dragged-card';
+// import ReactScrollbar from 'react-scrollbar-js';
+// import ScrollArea from 'react-scrollbar';
+import { Scrollbars } from 'react-custom-scrollbars';
 
+
+import '../styles/blocks/scroll-component.css';
 import '../styles/blocks/board.css'
 import '../styles/blocks/add-column-form.css'
 
@@ -41,19 +47,36 @@ class Board extends Component {
         this.setState({addColumnForm: !this.state.addColumnForm});
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         if (this.state.addColumnForm) {
             this.addColumnInput.focus();
         }
+        // if(prevProps.sortedColumnsIdMap.length !== this.props.sortedColumnsIdMap.length){
+        //     this.scrollBar.scrollArea.refresh();
+        //     console.log('-------------------');
+        //     // console.log(            this.scrollBar.scrollArea.refresh()
+        //     // );
+        // }
     }
 
     render() {
+        // console.log(222);
         let addColumnFormClasses = classNames('board__add-column-form add-column-form', {'add-column-form--showed': this.state.addColumnForm});
         // let addColumnFormClasses = classNames('board__add-column-form add-column-form', 'add-column-form--showed');
+        const scrollbarStyle = {
+            width: '100%',
+        };
+
+        const boardColumnsStyle = {
+            width: 310 * (this.props.board.columns.length + 1),
+        };
+
         return (
             <div className="board">
                 <h2 className="board__name">{this.props.board.name}</h2>
-                <div className="board__inner-wrapper">
+                {/*<ReactScrollbar className="scroll-component" style={scrollbarStyle}>*/}
+                {/*<ScrollArea ref={(item) => { this.scrollBar = item }} contentStyle={boardColumnsStyle}>*/}
+                <Scrollbars style={{width:'100%', height:'calc(100vh - 150px)'}}>
                     <div className="board__columns">
                         {this.renderColumns()}
                         <div className={addColumnFormClasses}>
@@ -69,19 +92,24 @@ class Board extends Component {
                                         this.addColumnInput = input
                                     }}
                                 />
-                                <button
-                                    className="btn add-column-form_btn"
-                                    onClick={this.addBoardClickHandler.bind(this)}
-                                >Add column
-                                </button>
-                                <button onClick={this.toggleAddCartForm.bind(this)}
-                                        className="btn-close add-column-form_btn">x
-                                </button>
+                                <div>
+                                    <button
+                                        className="btn add-column-form_btn"
+                                        onClick={this.addBoardClickHandler.bind(this)}
+                                    >Add column
+                                    </button>
+                                    <button onClick={this.toggleAddCartForm.bind(this)}
+                                            className="btn-close add-column-form_btn">x
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Scrollbars>
+                {/*</ScrollArea>*/}
+                {/*</ReactScrollbar>*/}
                 <DraggedColumn/>
+                <DraggedCard/>
                 {this.props.children}
             </div>
         );
@@ -94,12 +122,10 @@ export default connect(
         let sortedColumnsIdMap = currentBoard.columns.map(
             columnId => state.columns[columnId]
         ).sort(
-            (a, b) => + a.order - b.order
+            (a, b) => +a.order - b.order
         ).map(
-            column=>column.id
+            column => column.id
         );
-
-        // console.log(sortedColumnsIdMap);
 
         return {
             board: currentBoard,

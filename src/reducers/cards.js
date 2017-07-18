@@ -31,8 +31,9 @@ export  default function (cards = cardsInitialState, action) {
 
 function addCard(cards, action) {
     let newCards = helpers.copyObject(cards);
+    // debugger;
     newCards[action.payload.id] = action.payload;
-    return newCards[action.payload.id];
+    return newCards;
 }
 
 function removeBoard(cards, action) {
