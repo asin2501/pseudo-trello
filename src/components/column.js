@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import columnCords from '../utils/column-cords';
 // import ScrollArea from 'react-scrollbar';
 // import ReactScrollbar from 'react-scrollbar-js';
-import { Scrollbars } from 'react-custom-scrollbars';
+import {Scrollbars} from 'react-custom-scrollbars';
 
 class Column extends Component {
     constructor(props) {
@@ -51,6 +51,7 @@ class Column extends Component {
         if (this.state.addCardFromShowed) {
             this.addCardInput.focus();
         }
+        // console.log('cdu');
         this.sendCardCord();
     }
 
@@ -65,14 +66,17 @@ class Column extends Component {
     }
 
     sendCardCord() {
-        let elemRect = this.cardElement.getBoundingClientRect();
-        columnCords.set(this.props.data.id, this.props.data.order, elemRect.left);
+        //TODO: check how it works
+        if ((this.id ===this.props.draggedColumn.columnId && this.props.isEmptyWrapForDrag) || this.id !== this.props.draggedColumn.columnId) {
+            let elemRect = this.cardElement.getBoundingClientRect();
+            columnCords.set(this.props.data.id, this.props.data.order, elemRect.left);
+        }
     }
 
     handleUpdate(values) {
-        const { clientHeight, scrollHeight } = values;
-        const scrollExist = scrollHeight>scrollHeight;
-        console.log(111);
+        // const { clientHeight, scrollHeight } = values;
+        // const scrollExist = scrollHeight>scrollHeight;
+        // console.log(111);
     }
 
     onMouseDownHandler(e) {
@@ -106,7 +110,7 @@ class Column extends Component {
                     {/*<ReactScrollbar className="scroll-component scroll-component--column-scrollbar">*/}
                     {/*<ScrollArea className="column-scroll-bar" style={{maxHeight:'calc(100vh - 300px)'}}>*/}
                     <Scrollbars
-                        style={{width:'100%', maxHeight:'calc(100vh - 200px)', }}
+                        style={{width: '100%', maxHeight: 'calc(100vh - 200px)',}}
                         autoHeight
                         autoHeightMax={'calc(100vh - 250px)'}
                         onUpdate={this.handleUpdate}>

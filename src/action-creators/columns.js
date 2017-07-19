@@ -13,8 +13,8 @@ export function addColumn(columnName = 'New Column', boardID = 1) {
             id: +(new Date()),
             name: columnName,
             boardId: boardID,
-            order:0,
-            cards:[]
+            order: 0,
+            cards: []
         }
     };
 }
@@ -26,12 +26,12 @@ export function removeColumnAction(columnID) {
     };
 }
 
-export function updateColumnOrder(columnId, boardId) {
+export function updateColumnOrder(columnId, newOrder) {
     return {
         type: UPDATE_COLUMN_ORDER,
         payload: {
-            columnId:columnId,
-            order:boardId
+            columnId: columnId,
+            newOrder: newOrder
         }
     };
 }

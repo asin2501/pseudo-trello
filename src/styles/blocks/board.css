@@ -19,7 +19,7 @@
 
 .board__columns{
     white-space: nowrap;
-    width: 3000px;
+    /*width: 3000px;*/
 }
 
 .board__name{

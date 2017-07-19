@@ -67,10 +67,10 @@ class DraggedColumn extends Component {
         if (this.mouseMoveCounter === 3) {
             event = fixEvent(event);
             let newOrder = columnCords.getOrder(event.pageX);
-
+            console.log(this.props.column.order, newOrder);
             if (this.props.column.order !== newOrder) {
-                // console.log('old order:', this.props.column.order, 'new order:', newOrder);
-                this.props.updateColumnOrder(this.props.columnId,this.props.column.order);
+
+                this.props.updateColumnOrder(this.props.columnId, newOrder);
             }
 
             this.setState({x: event.pageX, y: event.pageY});
