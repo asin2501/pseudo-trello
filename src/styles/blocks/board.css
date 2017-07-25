@@ -1,6 +1,6 @@
 .board{
-    padding-right:20px;
-    padding-left:20px;
+    /*padding-right:20px;*/
+    /*padding-left:20px;*/
 }
 
 .board__scroll-wrapper{
@@ -11,14 +11,16 @@
 .board__column-wrap{
     display: inline-block;
     vertical-align: top;
+    padding-left: 5px;
+    padding-right:5px;
+
 }
 
-.board__column-wrap+.board__column-wrap{
-    margin-left:10px;
-}
 
 .board__columns{
     white-space: nowrap;
+    padding-right:5px;
+    padding-left:5px;
     /*width: 3000px;*/
 }
 

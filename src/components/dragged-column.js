@@ -33,7 +33,7 @@ class DraggedColumn extends Component {
                     className="dragged-column-wrap"
                     ref={element => this.element = element}
                 >
-                    <Column id={this.props.columnId} isEmptyWrapForDrag={false}/>
+                    <Column id={this.props.columnId} isDragged={true}/>
                 </div>
             )
         } else {
@@ -67,7 +67,8 @@ class DraggedColumn extends Component {
         if (this.mouseMoveCounter === 3) {
             event = fixEvent(event);
             let newOrder = columnCords.getOrder(event.pageX);
-            console.log(this.props.column.order, newOrder);
+
+
             if (this.props.column.order !== newOrder) {
 
                 this.props.updateColumnOrder(this.props.columnId, newOrder);

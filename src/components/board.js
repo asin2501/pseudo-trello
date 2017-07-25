@@ -12,6 +12,7 @@ import DraggedCard from './dragged-card';
 // import ScrollArea from 'react-scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars';
 
+import columnCords from '../utils/column-cords';
 
 import '../styles/blocks/scroll-component.css';
 import '../styles/blocks/board.css'
@@ -23,6 +24,10 @@ class Board extends Component {
         super(props);
         this.state = {addColumnForm: false};
     }
+    componentWillUnmount(){
+        columnCords.reset();
+        console.log(columnCords);
+    }
 
     addBoardClickHandler() {
         let columnName = this.addColumnInput.value.trim();
@@ -32,6 +37,9 @@ class Board extends Component {
         }
     }
 
+    xomponentWillUnmount(){
+
+    }
 
     renderColumns() {
         return this.props.sortedColumnsIdMap.map((columnId) => {
@@ -63,21 +71,16 @@ class Board extends Component {
         // console.log(222);
         let addColumnFormClasses = classNames('board__add-column-form add-column-form', {'add-column-form--showed': this.state.addColumnForm});
         // let addColumnFormClasses = classNames('board__add-column-form add-column-form', 'add-column-form--showed');
-        const scrollbarStyle = {
-            width: '100%',
-        };
 
         const boardColumnsStyle = {
-            width: 310 * (this.props.board.columns.length + 1),
+            width: 310 * (this.props.board.columns.length + 1) + 10,
         };
 
         return (
             <div className="board">
                 <h2 className="board__name">{this.props.board.name}</h2>
-                {/*<ReactScrollbar className="scroll-component" style={scrollbarStyle}>*/}
-                {/*<ScrollArea ref={(item) => { this.scrollBar = item }} contentStyle={boardColumnsStyle}>*/}
                 <Scrollbars style={{width:'100%', height:'calc(100vh - 150px)'}}>
-                    <div className="board__columns">
+                    <div className="board__columns" style={boardColumnsStyle}>
                         {this.renderColumns()}
                         <div className={addColumnFormClasses}>
                             <span
@@ -106,8 +109,6 @@ class Board extends Component {
                         </div>
                     </div>
                 </Scrollbars>
-                {/*</ScrollArea>*/}
-                {/*</ReactScrollbar>*/}
                 <DraggedColumn/>
                 <DraggedCard/>
                 {this.props.children}

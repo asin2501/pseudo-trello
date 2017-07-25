@@ -19,6 +19,8 @@ export  default function (columns = columnsInitialState, action) {
     switch (action.type) {
         case 'ADD_COLUMN':
             return addColumn(columns, action);
+        case 'CHANGE_CARD_POS':
+            return changeCardPos(columns, action);
         case 'REMOVE_COLUMN':
             return removeColumn(columns, action);
         case 'REMOVE_BOARD':
@@ -31,6 +33,26 @@ export  default function (columns = columnsInitialState, action) {
             return columns;
     }
 }
+
+function changeCardPos(columns, action) {
+    // 1. remove id form old column
+    // 2. add id to new column
+    //cardId, newColumnId, newColumnOrder
+
+    let oldColumnId = store.getState().card[action.payload.cardId].columnId;
+
+    if(action.payload.newColumnId === oldColumnId){
+        return columns;
+    }
+
+    let newColumns = helpers.copyObject(columns);
+
+    helpers.removeElementFromArray(newColumns[oldColumnId].cards, action.payload.cardId);
+    newColumns[newColumns].cards.push(action.payload.cardId);
+
+    return newColumns;
+}
+
 
 function addCard(columns, action) {
     let newColumns = helpers.copyObject(columns);
@@ -126,25 +148,13 @@ function updateColumnOrder(columns, action) {
     columnsIdMap.forEach((columnId) => {
         let column = newColumns[columnId];
 
-        if(column.order === action.payload.newOrder){
+        if (column.order === action.payload.newOrder) {
             column.order = movedColumn.order;
         }
-
-    //
-    //
-    //     if (movedColumn.order > action.payload.newOrder) {
-    //         if (column.order >= action.payload.newOrder && column.order <= movedColumn.order) {
-    //             column.order += 1;
-    //         }
-    //     } else {
-    //         if (column.order <= action.payload.newOrder && column.order >= movedColumn.order) {
-    //             column.order -= 1;
-    //         }
-    //     }
-    //
     });
 
     newColumns[action.payload.columnId].order = action.payload.newOrder;
 
+    // return columns;
     return newColumns;
 }

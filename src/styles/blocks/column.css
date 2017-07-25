@@ -7,7 +7,7 @@
 }
 
 
-.column--dragged{
+.column--dragged-wrap{
     background-color: rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     transition: background-color 300ms, box-shadow 300ms;
@@ -17,7 +17,7 @@
 
 }
 
-.column--dragged .column__inner{
+.column--dragged-wrap .column__inner{
     opacity: 0;
 }
 

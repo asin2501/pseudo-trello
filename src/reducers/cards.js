@@ -24,15 +24,36 @@ export  default function (cards = cardsInitialState, action) {
             return addCard(cards, action);
         case 'REMOVE_BOARD':
             return removeBoard(cards, action);
+        case 'CHANGE_CARD_POS':
+            return changeCardPos(cards, action);
         default:
             return cards;
     }
 }
 
+function changeCardPos(cards, action){
+    //cardId, newColumnId, newColumnOrder
+    let newCards = helpers.copyObject(cards);
+    let oldColumnId = newCards[action.payload.cardId].oldColumnId;
+
+    if(action.payload.newColumnId === oldColumnId){
+        //todo:change only order
+        // very dificult
+    }else{
+        newCards[action.payload.cardId].columnId = action.payload.newColumnId;
+        //todo:change order
+        // very dificult
+    }
+
+    return newCards;
+}
+
 function addCard(cards, action) {
     let newCards = helpers.copyObject(cards);
-    // debugger;
+
     newCards[action.payload.id] = action.payload;
+
+    newCards[action.payload.id].order =  store.getState().columns[action.payload.columnId].cards.length;
     return newCards;
 }
 

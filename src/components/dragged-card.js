@@ -9,7 +9,9 @@ import '../styles/blocks/dragged-card-wrap.css'
 // import classNames from 'classnames';
 import {unsetDraggedCard} from "../action-creators/app-state";
 // import {updateColumnOrder} from "../action-creators/columns";
-// import columnCords from "../utils/column-cords";
+import columnCords from "../utils/column-cords";
+import cardCords from '../utils/card-cords';
+import {changeCardPosAction} from '../action-creators/cards';
 
 class DraggedCard extends Component {
     constructor(props) {
@@ -33,7 +35,7 @@ class DraggedCard extends Component {
                     className="dragged-card-wrap"
                     ref={element => this.element = element}
                 >
-                    <Card id={this.props.cardId} isEmptyWrapForDrag={false}/>
+                    <Card id={this.props.cardId} isDragged={true}/>
                 </div>
             )
         } else {
@@ -66,12 +68,13 @@ class DraggedCard extends Component {
     mouseMove(event) {
         if (this.mouseMoveCounter === 3) {
             event = fixEvent(event);
-            // let newOrder = columnCords.getOrder(event.pageX);
-            //
-            // if (this.props.column.order !== newOrder) {
-            //     // console.log('old order:', this.props.column.order, 'new order:', newOrder);
-            //     this.props.updateColumnOrder(this.props.columnId,this.props.column.order);
-            // }
+            let newColumnId = columnCords.getId(event.pageX);
+            let newOrder = cardCords.getOrder(newColumnId, event.pageY);
+
+            if (this.props.card.columnId !== newColumnId || newOrder !== this.props.card.order) {
+                this.props.changeCardPos(this.props.cardId, newColumnId, newOrder);
+                // TODO: set id adn order
+            }
 
             this.setState({x: event.pageX, y: event.pageY});
             this.mouseMoveCounter = 0;
@@ -105,7 +108,7 @@ export default connect(state => {
         if (state.appState.draggedCard) {
             return {
                 cardId: state.appState.draggedCard.cardId,
-                card: state.columns[state.appState.draggedCard.cardId],
+                card: state.cards[state.appState.draggedCard.cardId],
                 offsetX: state.appState.draggedCard.offsetX,
                 offsetY: state.appState.draggedCard.offsetY,
                 x: state.appState.draggedCard.x,
@@ -119,6 +122,6 @@ export default connect(state => {
     },
     dispatch => ({
         unsetDraggedCard: () => dispatch(unsetDraggedCard()),
-        // updateColumnOrder: (id, order) => dispatch(updateColumnOrder(id, order))
+        changeCardPos: (id, newColumnId, newCardOrder) => dispatch(changeCardPosAction(id, newColumnId, newCardOrder))
     })
 )(DraggedCard);

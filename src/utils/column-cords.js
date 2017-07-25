@@ -14,7 +14,7 @@ class columnCordsMap {
             this.cords[id] = {order: order, x: x};
             this._mappedCords();
         }
-
+        // console.log(this);
     }
 
     remove(id) {
@@ -22,11 +22,8 @@ class columnCordsMap {
         this._mappedCords();
     }
 
-    getOrder(x) {
-
+    getOrderOrId(x, type='order'){
         let newOrder = this.cords[this.cordsIdMap[this.cordsIdMap.length - 1]].order; // get max order
-
-
 
         for (let i = 0; i < this.cordsIdMap.length; i++) {
             let columnId = this.cordsIdMap[i];
@@ -35,22 +32,38 @@ class columnCordsMap {
                 break;
             }
         }
-        // console.log('new-order', newOrder);
+        newOrder = (newOrder === -1 ? 0 : newOrder);
+        let targetId = this.cordsIdMap[newOrder];
 
-        return newOrder === -1 ? 0 : newOrder;
+        switch (type){
+            case 'order':
+                return newOrder;
+            case 'id':
+                return targetId;
+        }
+    }
+
+    getOrder(x) {
+        return this.getOrderOrId(x, 'order')
+    }
+
+    getId(x) {
+        return this.getOrderOrId(x, 'id')
+    }
+
+
+    reset(){
+        this.cords = {};
+        this.cordsIdMap = [];
     }
 
     _mappedCords() {
-        console.log(this.cords);
+        // console.log(this.cords);
         this.cordsIdMap = [];
         for (let key in this.cords) {
-            this.cordsIdMap.push(key);
+            this.cordsIdMap.push(+key);
         }
         this.cordsIdMap.sort(this._comparator.bind(this));
-        this.cordsIdMap.forEach((id)=>{
-            console.log('id:', id, 'cord:', this.cords[id].x );
-        });
-        console.log();
     }
 
     _comparator(a, b) {
