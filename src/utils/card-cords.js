@@ -6,31 +6,35 @@
  */
 class allColumnCords {
     constructor() {
-        this.columnCordsList = {};
+        this.columnList = {};
     }
 
     set(id, order, y, columnId) {
-        let columnCordsItem = this.columnCordsList[columnId];
+        let columnCordsItem = this.columnList[columnId];
 
         if (columnCordsItem === undefined) {
-            this.columnCordsList[columnId] = new columnCords(id, order, y);
+            this.columnList[columnId] = new columnCords(id, order, y);
         } else {
-            this.columnCordsList[columnId].set(id, order, y);
+            this.columnList[columnId].set(id, order, y);
         }
 
-        console.log(this.columnCordsList);
+        console.log(this.columnList);
     }
 
     remove(columnId, id) {
-        this.columnCordsList[columnId].remove(id);
+        // console.log(columnId, id);
+        // console.log(this.columnList);
+        // console.log(this.columnList[columnId]);
+
+        this.columnList[columnId].remove(id);
     }
 
     resetColumn(columnId) {
-        delete this.columnCordsList[columnId];
+        delete this.columnList[columnId];
     }
 
     getOrder(columnId, y) {
-        return this.columnCordsList[columnId].getOrder(y);
+        return this.columnList[columnId].getOrder(y);
     };
 }
 

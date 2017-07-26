@@ -19,13 +19,14 @@ export function addCardAction( columnId = 0, cardTitle = 'New Card') {
     }
 }
 
-export function changeCardPosAction(cardId, newColumnId, newColumnOrder) {
+export function changeCardPosAction(cardId, newColumnId, newOrder) {
     return {
         type: CHANGE_CARD_POS,
         payload: {
             cardId,
             newColumnId,
-            newColumnOrder
+            newOrder
         }
     }
 }
+

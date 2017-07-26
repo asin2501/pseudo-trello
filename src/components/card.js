@@ -32,7 +32,7 @@ class Card extends Component  {
 
     componentWillUnmount() {
         if (!this.props.isDragged) {
-            cardCords.remove(this.props.data.id);
+            cardCords.remove(this.props.data.columnId ,this.props.data.id);
         }
     }
 

@@ -5,7 +5,8 @@
 import helpers from '../utils/helpers';
 
 let appInitialState = {
-    draggedColumn:false
+    draggedColumn:false,
+    draggedCard:false
 };
 
 export  default function (appState = appInitialState, action) {

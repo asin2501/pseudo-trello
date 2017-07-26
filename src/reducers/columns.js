@@ -38,8 +38,9 @@ function changeCardPos(columns, action) {
     // 1. remove id form old column
     // 2. add id to new column
     //cardId, newColumnId, newColumnOrder
+    //todo: this do not work
 
-    let oldColumnId = store.getState().card[action.payload.cardId].columnId;
+    let oldColumnId = store.getState().cards[action.payload.cardId].columnId;
 
     if(action.payload.newColumnId === oldColumnId){
         return columns;
@@ -48,11 +49,10 @@ function changeCardPos(columns, action) {
     let newColumns = helpers.copyObject(columns);
 
     helpers.removeElementFromArray(newColumns[oldColumnId].cards, action.payload.cardId);
-    newColumns[newColumns].cards.push(action.payload.cardId);
+    newColumns[action.payload.newColumnId].cards.push(action.payload.cardId);
 
     return newColumns;
 }
-
 
 function addCard(columns, action) {
     let newColumns = helpers.copyObject(columns);

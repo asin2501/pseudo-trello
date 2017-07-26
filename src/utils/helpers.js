@@ -8,7 +8,7 @@ class Helper{
         return JSON.parse(JSON.stringify(obj));
     }
     removeElementFromArray(array, element){
-        let index = array.indexOf(5);
+        let index = array.indexOf(element);
 
         if (index > -1) {
             array.splice(index, 1);
