@@ -12,8 +12,18 @@ class Header extends Component {
         emitter.emit('addToCartPopupOpen');
     }
     render() {
-        return (<header className="header">header
-            <button onClick={this.openAddBoardPopup.bind(this)}>add board</button>
+        return (<header className="header">
+            <div className="header__inner">
+                <button className="picto-button">
+                    <i className="fa fa-bars" aria-hidden="true"></i>
+                </button>
+                <button className="picto-button" onClick={this.openAddBoardPopup.bind(this)}>
+                    <i className="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                <a className="picto-button" href="/">
+                    <i className="fa fa-home" aria-hidden="true"></i>
+                </a>
+            </div>
         </header>)
     }
 }

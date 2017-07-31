@@ -10,7 +10,7 @@ import cardCords from '../utils/card-cords';
 
 class Card extends Component  {
     render() {
-        let cardClasses =  classNames("card", {"card--dragged": (!this.props.isDragged && this.props.data.id === this.props.draggedCard.cardId)});
+        let cardClasses =  classNames("card", {"card--dragged": (!this.props.isDragged && this.props.draggedCard && this.props.data.id === this.props.draggedCard.cardId)});
         return (
             <div
                 onMouseDown={this.mouseDownHandler.bind(this)}
@@ -27,6 +27,10 @@ class Card extends Component  {
     }
 
     componentDidMount() {
+        this.sendCardCord();
+    }
+
+    componentDidUpdate() {
         this.sendCardCord();
     }
 

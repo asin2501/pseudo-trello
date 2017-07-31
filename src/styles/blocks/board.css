@@ -16,6 +16,9 @@
 
 }
 
+.board__favorite{
+    margin-left:20px;
+}
 
 .board__columns{
     white-space: nowrap;
@@ -24,10 +27,18 @@
     /*width: 3000px;*/
 }
 
+.board__head{
+    display: flex;
+    align-items:center;
+    padding-left:10px;
+    padding-top:15px;
+    padding-bottom:20px;
+}
+
 .board__name{
     opacity: 0.8;
-    margin-bottom:0;
     text-transform: uppercase;
     font-size:20px;
-    padding-bottom:20px;
+    margin-top:0;
+    margin-bottom:0;
 }

@@ -11,11 +11,13 @@ import DraggedCard from './dragged-card';
 // import ReactScrollbar from 'react-scrollbar-js';
 // import ScrollArea from 'react-scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { setFavoriteStatusAction } from '../action-creators/boards';
 
 import columnCords from '../utils/column-cords';
 
 import '../styles/blocks/scroll-component.css';
 import '../styles/blocks/board.css'
+import '../styles/blocks/favorite-toggler.css'
 import '../styles/blocks/add-column-form.css'
 
 
@@ -32,7 +34,7 @@ class Board extends Component {
     addBoardClickHandler() {
         let columnName = this.addColumnInput.value.trim();
         if (columnName) {
-            this.props.addColumn(columnName, this.props.board.id);
+            this.props.addColumn(columnName, this.props.data.id);
             this.addColumnInput.value = '';
         }
     }
@@ -70,15 +72,23 @@ class Board extends Component {
     render() {
         // console.log(222);
         let addColumnFormClasses = classNames('board__add-column-form add-column-form', {'add-column-form--showed': this.state.addColumnForm});
+        let favoriteIconClasses = classNames('fa', {'fa-star-o': !this.props.data.favorite, 'fa-star': this.props.data.favorite});
         // let addColumnFormClasses = classNames('board__add-column-form add-column-form', 'add-column-form--showed');
 
         const boardColumnsStyle = {
-            width: 310 * (this.props.board.columns.length + 1) + 10,
+            width: 310 * (this.props.data.columns.length + 1) + 10,
         };
 
         return (
             <div className="board">
-                <h2 className="board__name">{this.props.board.name}</h2>
+                <div className="board__head">
+                    <h2 className="board__name">{this.props.data.name}</h2>
+                    <button
+                        onClick={this.props.setFavoriteStatus.bind(this, this.props.data.id, !this.props.data.favorite)}
+                        className="board__favorite favorite-toggler">
+                        <i className={favoriteIconClasses}></i>
+                    </button>
+                </div>
                 <Scrollbars style={{width:'100%', height:'calc(100vh - 150px)'}}>
                     <div className="board__columns" style={boardColumnsStyle}>
                         {this.renderColumns()}
@@ -129,13 +139,16 @@ export default connect(
         );
 
         return {
-            board: currentBoard,
+            data: currentBoard,
             sortedColumnsIdMap: sortedColumnsIdMap
         };
     },
     dispatch => ({
         addColumn: (boardName, boardID) => {
             dispatch(addColumn(boardName, boardID))
+        },
+        setFavoriteStatus: (boardId)=>{
+            dispatch(setFavoriteStatusAction(boardId));
         }
     })
 )(Board);

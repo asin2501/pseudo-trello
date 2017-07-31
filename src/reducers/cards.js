@@ -62,18 +62,19 @@ function changeCardPos(cards, action) {
         //todo: this do not work
         newColumnCardIdMap.forEach((cardId) => {
             let card = newCards[cardId];
-            if (card.order > oldOrder) {
-                card.order--;
+            if (card.order >= newOrder) {
+                card.order++;
             }
         });
 
         oldColumnCardIdMap.forEach((cardId) => {
             let card = newCards[cardId];
             if (card.order >= oldOrder) {
-                card.order++;
+                card.order--;
             }
         });
 
+        newCards[cardId].order = newOrder;
         newCards[action.payload.cardId].columnId = action.payload.newColumnId;
     }
 

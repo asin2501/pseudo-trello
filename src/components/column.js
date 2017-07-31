@@ -11,7 +11,7 @@ import {setDraggedColumn} from '../action-creators/app-state';
 import Card from './card';
 import classNames from 'classnames';
 import columnCords from '../utils/column-cords';
-// import cardCords from '../utils/card-cords';
+import cardCords from '../utils/card-cords';
 // import ScrollArea from 'react-scrollbar';
 // import ReactScrollbar from 'react-scrollbar-js';
 import {Scrollbars} from 'react-custom-scrollbars';
@@ -51,6 +51,10 @@ class Column extends Component {
             this.addCardInput.focus();
         }
         this.sendColumnCord();
+
+        if(this.props.cards.length === 0){
+            cardCords.resetColumn(this.props.data.id);
+        }
     }
 
     componentDidMount() {
@@ -60,6 +64,7 @@ class Column extends Component {
     componentWillUnmount() {
         if (!this.props.isDragged) {
             columnCords.remove(this.props.data.id);
+            cardCords.resetColumn(this.props.data.id);
         }
     }
 

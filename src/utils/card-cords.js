@@ -34,7 +34,12 @@ class allColumnCords {
     }
 
     getOrder(columnId, y) {
-        return this.columnList[columnId].getOrder(y);
+        if(this.columnList[columnId]){
+            return this.columnList[columnId].getOrder(y);
+        }else{
+            // if empty column
+            return 0;
+        }
     };
 }
 
@@ -59,6 +64,11 @@ class columnCords {
     }
 
     getOrder(y) {
+        //if empty
+        // if(this.cordsIdMap.length === 0){
+        //     return 0;
+        // }
+
         let newOrder = this.cords[this.cordsIdMap[this.cordsIdMap.length - 1]].order; // get max order
 
         for (let i = 0; i < this.cordsIdMap.length; i++) {

@@ -9,6 +9,7 @@ import { Link } from 'react-router'
 import Popup from "./components/popup";
 import AddBoardForm from "./components/addBoardForm";
 
+import './styles/blocks/picto-button.css';
 
 const addBoardPopupProps = {
     header: 'Add board',

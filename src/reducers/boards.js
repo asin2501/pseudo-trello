@@ -10,6 +10,7 @@ let BoardsInitialState = {
             id: 1,
             name: 'First board',
             columns: [],
+            favorite: false
         }
     }
 };
@@ -18,6 +19,8 @@ export  default function (boards = BoardsInitialState, action) {
     switch (action.type) {
         case 'ADD_BOARD':
             return addBoard(boards, action);
+        case 'SET_FAVORITE_STATUS':
+            return setFavoriteStatus(boards, action);
         case 'ADD_COLUMN':
             return addColumn(boards, action);
         case 'REMOVE_COLUMN':
@@ -29,11 +32,17 @@ export  default function (boards = BoardsInitialState, action) {
     }
 }
 
+function setFavoriteStatus(boards, action) {
+    let newBoards = helpers.copyObject(boards);
+    newBoards.boards[action.payload.boardId].favorite = !newBoards.boards[action.payload.boardId].favorite;
+    return newBoards;
+}
+
 function addBoard(boards, action) {
-    return {
-        boardIdList: [...boards.boardIdList, action.payload.id],
-        boards: Object.assign({}, boards.boards, {[action.payload.id]: action.payload})
-    };
+    let newBoards = helpers.copyObject(boards);
+    newBoards.boardIdList.push(action.payload.id);
+    newBoards.boards[action.payload.id] = action.payload;
+    return newBoards;
 }
 
 function removeBard(boards, action) {
