@@ -25,8 +25,9 @@ class allColumnCords {
         // console.log(columnId, id);
         // console.log(this.columnList);
         // console.log(this.columnList[columnId]);
-
-        this.columnList[columnId].remove(id);
+        if(this.columnList[columnId]){
+            this.columnList[columnId].remove(id);
+        }
     }
 
     resetColumn(columnId) {

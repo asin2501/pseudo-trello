@@ -9,6 +9,10 @@
     width:25%;
 }
 
+.board-list-container__title{
+    margin-bottom:0;
+}
+
 .board-list-container {
     padding-left: 20px;
     padding-right: 20px;
