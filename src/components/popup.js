@@ -38,6 +38,7 @@ class Popup extends Component {
     }
 
     render() {
+
         // console.log(this.state);
         let popupClasses = classNames("popup", {"popup--showed":this.state.showed});
 

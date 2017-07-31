@@ -27,7 +27,8 @@ class BoardList extends Component {
         e.preventDefault();
         this.props.removeBoard(id);
     }
-    renderBoards(boardsList){
+
+    renderBoards(boardsList) {
         return boardsList.map((item) => {
             return (
                 <div key={item.id} className="board-list__item-wrap">
@@ -39,27 +40,38 @@ class BoardList extends Component {
             )
         })
     }
-    render() {
-        return (
-            <div className="board-list-container">
-                <h2 className="board-list-container__title">Favorite boards</h2>
-                <div className="board-list">
-                    {
-                        this.renderBoards(this.props.boards.filter(board => board.favorites))
-                    }
-                    <div className="board-list__item-wrap">
-                        <button className="board-list__add-button" onClick={this.addBoardClick.bind(this)}>Add board
-                        </button>
+
+    renderFavorites() {
+        // let favoriteBoardList = this.props.boards.filter(board => board.favorite);
+        if (this.props.favoriteBoardList.length) {
+            return (
+                <div>
+                    <h2 className="board-list-container__title">Favorite boards</h2>
+                    <div className="board-list">
+                        {this.renderBoards(this.props.favoriteBoardList)}
                     </div>
                 </div>
-                <h2 className="board-list-container__title">Other boards</h2>
+            )
+        } else {
+            return null;
+        }
+
+    }
+
+    render() {
+
+        // let notfavoriteBoardList = this.props.boards.filter(board => !board.favorite);
+        return (
+            <div className="board-list-container">
+                {this.renderFavorites() }
+
+                <h2 className="board-list-container__title">All boards</h2>
                 <div className="board-list">
                     {
-                        this.renderBoards(this.props.boards.filter(board => !board.favorites))
+                        this.renderBoards(this.props.notfavoriteBoardList)
                     }
                     <div className="board-list__item-wrap">
-                        <button className="board-list__add-button" onClick={this.addBoardClick.bind(this)}>Add board
-                        </button>
+                        <button className="board-list__add-button" onClick={this.addBoardClick.bind(this)}>Add board</button>
                     </div>
                 </div>
             </div>
@@ -68,9 +80,15 @@ class BoardList extends Component {
 }
 
 export default connect(
-    state => ({
-        boards: state.boards.boardIdList.map((id) => state.boards.boards[id])
-    }),
+    state => {
+        let boards = state.boards.boardIdList.map((id) => state.boards.boards[id]);
+        return {
+            boards,
+            favoriteBoardList: boards.filter(board => board.favorite),
+            notfavoriteBoardList: boards.filter(board => !board.favorite),
+
+        }
+    },
     dispatch => ({
         //addBoard: boardName => dispatch({type: 'ADD_BOARD', payload: boardName})
         removeBoard: boardID => dispatch(removeBoardAction(boardID))

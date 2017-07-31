@@ -6,7 +6,8 @@ import helpers from '../utils/helpers';
 
 let appInitialState = {
     draggedColumn:false,
-    draggedCard:false
+    draggedCard:false,
+    sidebarStatus:false
 };
 
 export  default function (appState = appInitialState, action) {
@@ -19,6 +20,12 @@ export  default function (appState = appInitialState, action) {
             break;
         case 'SET_DRAGGED_CARD':
             return setDraggedCard(appState, action);
+            break;
+        case 'OPEN_SIDEBAR':
+            return openSidebar(appState, action);
+            break;
+        case 'CLOSE_SIDEBAR':
+            return closeSidebar(appState, action);
             break;
         case 'UNSET_DRAGGED_CARD':
             return unsetDraggedCard(appState, action);
@@ -49,5 +56,17 @@ function setDraggedCard(appState, action) {
 function unsetDraggedCard(appState, action) {
     let newAppState = helpers.copyObject(appState);
     newAppState.draggedCard = false;
+    return newAppState;
+}
+
+function openSidebar(appState, action) {
+    let newAppState = helpers.copyObject(appState);
+    newAppState.sidebarStatus = true;
+    return newAppState;
+}
+
+function closeSidebar(appState, action) {
+    let newAppState = helpers.copyObject(appState);
+    newAppState.sidebarStatus = false;
     return newAppState;
 }

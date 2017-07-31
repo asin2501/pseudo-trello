@@ -8,6 +8,7 @@ import Footer from "./components/footer";
 import { Link } from 'react-router'
 import Popup from "./components/popup";
 import AddBoardForm from "./components/addBoardForm";
+import Sidebar from "./components/sidebar";
 
 import './styles/blocks/picto-button.css';
 
@@ -36,6 +37,7 @@ class App extends Component {
                 <Popup settings={addBoardPopupProps}>
                     <AddBoardForm/>
                 </Popup>
+                <Sidebar/>
             </div>
         );
     }

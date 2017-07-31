@@ -1,0 +1,20 @@
+.sidebar{
+    position: fixed;
+    left:0;
+    top:50px;
+    bottom:0;
+    width:400px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
+    transform: translateX(-110%);
+    transition: transform 400ms;
+    z-index:1;
+}
+
+.sidebar--opened{
+    transform: translateX(0);
+}
+
+.sidebar__scroll-container{
+    padding:10px;
+}
