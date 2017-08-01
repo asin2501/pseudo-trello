@@ -7,7 +7,8 @@ import helpers from '../utils/helpers';
 let appInitialState = {
     draggedColumn:false,
     draggedCard:false,
-    sidebarStatus:false
+    sidebarStatus:false,
+    searchText:""
 };
 
 export  default function (appState = appInitialState, action) {
@@ -27,12 +28,22 @@ export  default function (appState = appInitialState, action) {
         case 'CLOSE_SIDEBAR':
             return closeSidebar(appState, action);
             break;
+        case 'CHANGE_SEARCH_TEXT':
+            return changeSearchText(appState, action);
+            break;
         case 'UNSET_DRAGGED_CARD':
             return unsetDraggedCard(appState, action);
             break;
         default:
             return appState;
     }
+}
+
+function changeSearchText(appState, action) {
+    let newAppState = helpers.copyObject(appState);
+    // console.log(action.payload.searchText);
+    newAppState.searchText = action.payload.searchText;
+    return newAppState;
 }
 
 function setDraggedColumn(appState, action) {

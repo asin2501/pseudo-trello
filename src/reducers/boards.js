@@ -10,7 +10,8 @@ let BoardsInitialState = {
             id: 1,
             name: 'First board',
             columns: [],
-            favorite: false
+            favorite: false,
+            color: "#5EA5BC"
         }
     }
 };

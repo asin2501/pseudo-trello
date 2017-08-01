@@ -7,6 +7,7 @@ const UNSET_DRAGGED_COLUMN = 'UNSET_DRAGGED_COLUMN';
 const UNSET_DRAGGED_CARD = 'UNSET_DRAGGED_CARD';
 const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
+const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
 
 export function setDraggedColumn(columnId, x, y, offsetX,offsetY) {
     return {
@@ -38,6 +39,16 @@ export function openSideBarAction() {
     console.log('open');
     return {
         type: OPEN_SIDEBAR,
+    };
+}
+
+export function changeSearchTextAction(searchText = "") {
+    console.log('--------', searchText);
+    return {
+        type: CHANGE_SEARCH_TEXT,
+        payload:{
+            searchText
+        }
     };
 }
 

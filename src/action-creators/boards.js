@@ -1,6 +1,7 @@
 /**
  * Created by user on 12.06.2017.
  */
+import settings from "../settings.json";
 
 const ADD_BOARD = 'ADD_BOARD';
 const REMOVE_BOARD = 'REMOVE_BOARD';
@@ -16,7 +17,8 @@ export function addBoardAction(boardName = 'New Board') {
             id: +(new Date()),
             name: boardName,
             columns: [],
-            favorite: false
+            favorite: false,
+            color: settings.boardColor
         }
     }
 }

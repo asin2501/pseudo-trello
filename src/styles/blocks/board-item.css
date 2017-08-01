@@ -1,0 +1,34 @@
+.board-item{
+    display: block;
+    /*color: inherit;*/
+    /*text-decoration: none;*/
+    position: relative;
+    border-radius: 3px;
+    /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);*/
+    cursor: pointer;
+}
+
+.board-item:hover .board-item__inner{
+    background-color: rgba(255, 255, 255, 0.71);
+
+}
+
+.board-item__inner{
+    background-color: rgba(255, 255, 255, 0.86);
+    padding-top:10px;
+    padding-right:5px;
+    padding-bottom:10px;
+    padding-left:10px;
+    margin-left:30px;
+
+
+}
+.board-item +.board-item{
+    margin-top:5px;
+}
+
+.board-item__controls{
+    right:10px;
+    top:10px;
+    position: absolute;
+}
