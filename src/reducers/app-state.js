@@ -8,6 +8,7 @@ let appInitialState = {
     draggedColumn:false,
     draggedCard:false,
     sidebarStatus:false,
+    colorbarStatus:false,
     searchText:""
 };
 
@@ -22,11 +23,11 @@ export  default function (appState = appInitialState, action) {
         case 'SET_DRAGGED_CARD':
             return setDraggedCard(appState, action);
             break;
-        case 'OPEN_SIDEBAR':
-            return openSidebar(appState, action);
+        case 'SET_COLOLORBAR_STATUS':
+            return setColorbarStatus(appState, action);
             break;
-        case 'CLOSE_SIDEBAR':
-            return closeSidebar(appState, action);
+        case 'SET_SIDEBAR_STATUS':
+            return setSideBarStatus(appState, action);
             break;
         case 'CHANGE_SEARCH_TEXT':
             return changeSearchText(appState, action);
@@ -37,6 +38,19 @@ export  default function (appState = appInitialState, action) {
         default:
             return appState;
     }
+}
+
+function setColorbarStatus(appState, action){
+    let newAppState = helpers.copyObject(appState);
+
+    newAppState.colorbarStatus = action.payload;
+    return newAppState;
+}
+
+function setSideBarStatus(appState, action){
+    let newAppState = helpers.copyObject(appState);
+    newAppState.sidebarStatus = action.payload;
+    return newAppState;
 }
 
 function changeSearchText(appState, action) {
@@ -67,17 +81,5 @@ function setDraggedCard(appState, action) {
 function unsetDraggedCard(appState, action) {
     let newAppState = helpers.copyObject(appState);
     newAppState.draggedCard = false;
-    return newAppState;
-}
-
-function openSidebar(appState, action) {
-    let newAppState = helpers.copyObject(appState);
-    newAppState.sidebarStatus = true;
-    return newAppState;
-}
-
-function closeSidebar(appState, action) {
-    let newAppState = helpers.copyObject(appState);
-    newAppState.sidebarStatus = false;
     return newAppState;
 }

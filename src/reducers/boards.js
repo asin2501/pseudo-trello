@@ -22,6 +22,8 @@ export  default function (boards = BoardsInitialState, action) {
             return addBoard(boards, action);
         case 'SET_FAVORITE_STATUS':
             return setFavoriteStatus(boards, action);
+        case 'SET_COLOR':
+            return setColor(boards, action);
         case 'ADD_COLUMN':
             return addColumn(boards, action);
         case 'REMOVE_COLUMN':
@@ -36,6 +38,12 @@ export  default function (boards = BoardsInitialState, action) {
 function setFavoriteStatus(boards, action) {
     let newBoards = helpers.copyObject(boards);
     newBoards.boards[action.payload.boardId].favorite = !newBoards.boards[action.payload.boardId].favorite;
+    return newBoards;
+}
+
+function setColor(boards, action) {
+    let newBoards = helpers.copyObject(boards);
+    newBoards.boards[action.payload.boardId].color = action.payload.color;
     return newBoards;
 }
 

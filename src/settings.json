@@ -1,3 +1,33 @@
 {
-    "boardColor" : "rgb(94, 165, 188)"
+    "boardColor" : "rgb(94, 165, 188)",
+    "avaliableBoardColors":[
+        {
+            "name":1,
+            "rgb":"#16a085"
+        },{
+            "name":2,
+            "rgb":"#34495e"
+        },{
+            "name":3,
+            "rgb":"#d35400"
+        },{
+            "name":4,
+            "rgb":"#f39c12"
+        },{
+            "name":5,
+            "rgb":"#8e44ad"
+        },{
+            "name":6,
+            "rgb":"#336E7B"
+        },{
+            "name":7,
+            "rgb":"#1BA39C"
+        },{
+            "name":8,
+            "rgb":"#D24D57"
+        },{
+            "name":8,
+            "rgb":"#674172"
+        }
+    ]
 }

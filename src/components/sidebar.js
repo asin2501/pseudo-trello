@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import classNames from 'classnames';
 import insideClassName from '../utils/inside-class-name';
 import {setFavoriteStatusAction} from '../action-creators/boards';
-import {closeSideBarAction, changeSearchTextAction} from '../action-creators/app-state';
+import {setSideBarStatusAction, changeSearchTextAction} from '../action-creators/app-state';
 import '../styles/blocks/sidebar.css';
 import '../styles/blocks/board-item.css';
 import {hashHistory} from 'react-router';
@@ -41,7 +41,7 @@ class Sidebar extends Component {
         let target = e.target;
         let isInsideClass = insideClassName(target, 'sidebar');
 
-        if (!isInsideClass && target.className.indexOf('sidebar') === -1) {
+        if (!isInsideClass && target.className.indexOf('sidebar') === -1 && target.className.indexOf('js-open-sidebar') === -1) {
             this.props.close();
             e.preventDefault();
             e.stopPropagation();
@@ -179,7 +179,7 @@ export default connect(
         }
     },
     dispatch => ({
-        close: () => dispatch(closeSideBarAction()),
+        close: () => dispatch(setSideBarStatusAction(false)),
         setFavorite: (boardId, status) => dispatch(setFavoriteStatusAction(boardId, status)),
         setSearchText: (text) => dispatch(changeSearchTextAction(text))
         //     //addBoard: boardName => dispatch({type: 'ADD_BOARD', payload: boardName})

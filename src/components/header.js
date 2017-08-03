@@ -7,51 +7,80 @@ import emitter from './emitter';
 import {connect} from 'react-redux';
 import store from '../store';
 
-import {openSideBarAction} from '../action-creators/app-state';
+import {setSideBarStatusAction, setColorBarStatusAction} from '../action-creators/app-state';
 
 
 class Header extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.openSidebar = this.openSidebar.bind(this)
+        this.toggleSidebar = this.toggleSidebar.bind(this);
+        this.toggleColorbar = this.toggleColorbar.bind(this);
     }
 
-    openSidebar(){
-        store.dispatch(openSideBarAction())
+    toggleSidebar() {
+        this.props.setSidebarStatus(!this.props.sidebarStatus);
     }
 
-    openAddBoardPopup(){
+    toggleColorbar() {
+        console.log(this.props);
+        this.props.setColorbarStatus(!this.props.colorbarStatus);
+    }
+
+    openAddBoardPopup() {
         emitter.emit('addToCartPopupOpen');
     }
 
     render() {
         return (<header className="header">
             <div className="header__inner">
-                <button
-                    className="picto-button"
-                    title="Menu"
-                    onClick={this.openSidebar}
-                >
-                    <i className="fa fa-bars" aria-hidden="true"></i>
-                </button>
-                <button
+                <div>
+                    <button
+                        className="picto-button js-open-sidebar"
+                        title="Menu"
+                        onClick={this.toggleSidebar}
+                    >
+                        <i className="fa fa-bars" aria-hidden="true"></i>
+                    </button>
+                    <button
                         className="picto-button"
                         onClick={this.openAddBoardPopup.bind(this)}
                         title="Add board"
-                >
-                    <i className="fa fa-plus" aria-hidden="true"></i>
-                </button>
-                <a
-                    className="picto-button"
-                    href="/"
-                    title="Board list"
-                >
-                    <i className="fa fa-home" aria-hidden="true"></i>
-                </a>
+                    >
+                        <i className="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <a
+                        className="picto-button"
+                        href="/"
+                        title="Board list"
+                    >
+                        <i className="fa fa-home" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div>
+                    <a
+                        className="picto-button"
+                        title="Colors"
+                        onClick={this.toggleColorbar}
+                    >
+                        <i className="fa fa-globe" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
         </header>)
     }
 }
 
-//export default App;
-export default Header;
+export default connect(
+    state => ({
+        sidebarStatus: state.appState.sidebarStatus,
+        colorbarStatus: state.appState.colorbarStatus
+    }),
+    dispatch => ({
+        setSidebarStatus: status =>{
+            dispatch(setSideBarStatusAction(status));
+        },
+        setColorbarStatus: status =>{
+            dispatch(setColorBarStatusAction(status));
+        }
+    })
+)(Header);

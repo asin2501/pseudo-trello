@@ -7,6 +7,7 @@ const ADD_BOARD = 'ADD_BOARD';
 const REMOVE_BOARD = 'REMOVE_BOARD';
 const RENAME_BOARD = 'RENAME_BOARD';
 const SET_FAVORITE_STATUS = 'SET_FAVORITE_STATUS';
+const SET_COLOR = 'SET_COLOR';
 
 const ADD_COLUMN = 'ADD_COLUMN';
 
@@ -34,6 +35,16 @@ export function removeBoardAction(id) {
     return {
         type: REMOVE_BOARD,
         payload: id
+    }
+}
+
+export function setColorAction(color, boardId) {
+    return {
+        type: SET_COLOR,
+        payload: {
+            color,
+            boardId
+        }
     }
 }
 

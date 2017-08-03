@@ -8,10 +8,11 @@ import Column from './column';
 import classNames from 'classnames';
 import DraggedColumn from './dragged-column';
 import DraggedCard from './dragged-card';
+import Colorbar from "./colorbar";
 // import ReactScrollbar from 'react-scrollbar-js';
 // import ScrollArea from 'react-scrollbar';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { setFavoriteStatusAction } from '../action-creators/boards';
+import {Scrollbars} from 'react-custom-scrollbars';
+import {setFavoriteStatusAction} from '../action-creators/boards';
 
 import columnCords from '../utils/column-cords';
 
@@ -26,7 +27,8 @@ class Board extends Component {
         super(props);
         this.state = {addColumnForm: false};
     }
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         columnCords.reset();
         console.log(columnCords);
     }
@@ -39,7 +41,7 @@ class Board extends Component {
         }
     }
 
-    xomponentWillUnmount(){
+    xomponentWillUnmount() {
 
     }
 
@@ -79,8 +81,10 @@ class Board extends Component {
             width: 310 * (this.props.data.columns.length + 1) + 10,
         };
 
+        let style = {backgroundColor: this.props.data.color};
+
         return (
-            <div className="board">
+            <div className="board" style={style}>
                 <div className="board__head">
                     <h2 className="board__name">{this.props.data.name}</h2>
                     <button
@@ -89,7 +93,7 @@ class Board extends Component {
                         <i className={favoriteIconClasses}></i>
                     </button>
                 </div>
-                <Scrollbars style={{width:'100%', height:'calc(100vh - 150px)'}}>
+                <Scrollbars style={{width: '100%', height: 'calc(100vh - 150px)'}}>
                     <div className="board__columns" style={boardColumnsStyle}>
                         {this.renderColumns()}
                         <div className={addColumnFormClasses}>
@@ -121,6 +125,7 @@ class Board extends Component {
                 </Scrollbars>
                 <DraggedColumn/>
                 <DraggedCard/>
+                <Colorbar boardId={this.props.data.id}/>
                 {this.props.children}
             </div>
         );
@@ -147,7 +152,7 @@ export default connect(
         addColumn: (boardName, boardID) => {
             dispatch(addColumn(boardName, boardID))
         },
-        setFavoriteStatus: (boardId)=>{
+        setFavoriteStatus: (boardId) => {
             dispatch(setFavoriteStatusAction(boardId));
         }
     })
