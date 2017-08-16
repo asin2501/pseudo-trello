@@ -8,6 +8,11 @@
     box-sizing: border-box;
 }
 
+.board__picto-button{
+    position: absolute;
+    right:20px;
+}
+
 .board__scroll-wrapper{
     height: 500px;
     width:100%;

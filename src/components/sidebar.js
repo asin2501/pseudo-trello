@@ -11,6 +11,7 @@ import {setSideBarStatusAction, changeSearchTextAction} from '../action-creators
 import '../styles/blocks/sidebar.css';
 import '../styles/blocks/board-item.css';
 import {hashHistory} from 'react-router';
+import {Scrollbars} from 'react-custom-scrollbars';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -28,7 +29,6 @@ class Sidebar extends Component {
     }
 
     setHandler() {
-        //todo: add or remove listener
         // console.log('listeners', this.props.status);
         if (this.props.status) {
             document.body.addEventListener('mouseup', this.mouseUpHandler);
@@ -72,7 +72,7 @@ class Sidebar extends Component {
             return this.renderSearchResult();
         } else {
             return (
-                <div>
+                <div className="scroll-inner">
                     {this.renderFavorites()}
                     {this.renderAllBoards()}
                 </div>
@@ -107,8 +107,12 @@ class Sidebar extends Component {
             return <BoardItem
                 key={item.id}
                 data={item}
-                setFavorite={this.props.setFavorite.bind(this, item.id, item.favorite)}
-                movTo={()=>{
+                setFavorite={
+                    (e) => {
+                        this.props.setFavorite(item.id, item.favorite)
+                        e.stopPropagation();
+                    }}
+                movTo={() => {
                     hashHistory.push(`/board/${item.id}`);
                     this.props.close();
                 }}
@@ -122,6 +126,7 @@ class Sidebar extends Component {
         return (
             <div className={sideBarClasses}>
                 <div className="sidebar__inner">
+
                     <div className="sidebar__scroll-container">
                         <input
                             type="text"
@@ -129,10 +134,18 @@ class Sidebar extends Component {
                             ref={(input) => {
                                 this.searchInput = input
                             }}
+                            value={this.props.searchText}
                             onInput={this.inputHandler.bind(this)}
                         />
-                        {this.renderContent()}
+                        <Scrollbars
+                            style={{width: '100%'}}
+                            autoHeight
+                            autoHeightMax={'calc(100vh - 120px)'}>
+
+                            {this.renderContent()}
+                        </Scrollbars>
                     </div>
+
                 </div>
             </div>
         );
@@ -149,9 +162,9 @@ function BoardItem(props) {
     return (
         <div
             className="board-item"
-             key={props.data.id}
-             style={style}
-             onClick={props.movTo}
+            key={props.data.id}
+            style={style}
+            onClick={props.movTo}
         >
             <div className="board-item__inner">
                 {props.data.name}

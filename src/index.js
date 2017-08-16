@@ -7,6 +7,7 @@ import {syncHistoryWithStore} from 'react-router-redux';
 
 import './styles/index.css';
 import './styles/blocks/btn.css';
+import './styles/blocks/input.css';
 import './styles/blocks/btn-close.css';
 
 import {Provider} from 'react-redux';

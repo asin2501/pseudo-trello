@@ -19,8 +19,10 @@ class Popup extends Component {
         // console.log(this.state);
     }
 
+
     componentDidMount() {
         emitter.addListener(this.props.settings.openEvent, this.open.bind(this));
+        emitter.addListener(this.props.settings.closeEvent, this.close.bind(this));
     }
 
     open() {
@@ -44,10 +46,10 @@ class Popup extends Component {
 
         return (
             <div className={popupClasses}>
-                <div className="popup__conteiner">
+                <div className="popup__conteiner popup__conteiner--small">
                     <div className="popup__header">
-                        <h3>{this.props.settings.header}</h3>
-                        <button onClick={this.close.bind(this)}>x</button>
+                        <h3 className="popup__title">{this.props.settings.header}</h3>
+                        <button  className="btn-close popup__btn-close" onClick={this.close.bind(this)}>x</button>
                     </div>
                     <div className="popup__content">
                         {this.props.children}

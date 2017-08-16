@@ -14,17 +14,12 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.toggleSidebar = this.toggleSidebar.bind(this);
-        this.toggleColorbar = this.toggleColorbar.bind(this);
     }
 
     toggleSidebar() {
         this.props.setSidebarStatus(!this.props.sidebarStatus);
     }
 
-    toggleColorbar() {
-        console.log(this.props);
-        this.props.setColorbarStatus(!this.props.colorbarStatus);
-    }
 
     openAddBoardPopup() {
         emitter.emit('addToCartPopupOpen');
@@ -56,15 +51,6 @@ class Header extends Component {
                         <i className="fa fa-home" aria-hidden="true"></i>
                     </a>
                 </div>
-                <div>
-                    <a
-                        className="picto-button"
-                        title="Colors"
-                        onClick={this.toggleColorbar}
-                    >
-                        <i className="fa fa-globe" aria-hidden="true"></i>
-                    </a>
-                </div>
             </div>
         </header>)
     }
@@ -72,15 +58,11 @@ class Header extends Component {
 
 export default connect(
     state => ({
-        sidebarStatus: state.appState.sidebarStatus,
-        colorbarStatus: state.appState.colorbarStatus
+        sidebarStatus: state.appState.sidebarStatus
     }),
     dispatch => ({
         setSidebarStatus: status =>{
             dispatch(setSideBarStatusAction(status));
-        },
-        setColorbarStatus: status =>{
-            dispatch(setColorBarStatusAction(status));
         }
     })
 )(Header);

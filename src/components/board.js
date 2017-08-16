@@ -13,7 +13,7 @@ import Colorbar from "./colorbar";
 // import ScrollArea from 'react-scrollbar';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {setFavoriteStatusAction} from '../action-creators/boards';
-
+import {setSideBarStatusAction, setColorBarStatusAction} from '../action-creators/app-state';
 import columnCords from '../utils/column-cords';
 
 import '../styles/blocks/scroll-component.css';
@@ -26,6 +26,8 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {addColumnForm: false};
+
+        this.toggleColorbar = this.toggleColorbar.bind(this);
     }
 
     componentWillUnmount() {
@@ -57,6 +59,19 @@ class Board extends Component {
 
     toggleAddCartForm() {
         this.setState({addColumnForm: !this.state.addColumnForm});
+    }
+
+    keyUpHandler(e) {
+        if (e.keyCode === 27) {
+            this.setState({addColumnForm: false});
+        } else if (e.keyCode === 13) {
+            this.addBoardClickHandler();
+        }
+    }
+
+
+    toggleColorbar() {
+        this.props.setColorbarStatus(!this.props.colorbarStatus);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -92,6 +107,13 @@ class Board extends Component {
                         className="board__favorite favorite-toggler">
                         <i className={favoriteIconClasses}></i>
                     </button>
+                    <a
+                        className="picto-button board__picto-button"
+                        title="Colors"
+                        onClick={this.toggleColorbar}
+                    >
+                        <i className="fa fa-globe" aria-hidden="true"></i>
+                    </a>
                 </div>
                 <Scrollbars style={{width: '100%', height: 'calc(100vh - 150px)'}}>
                     <div className="board__columns" style={boardColumnsStyle}>
@@ -103,8 +125,9 @@ class Board extends Component {
                             >Add column...</span>
                             <div className="add-column-form__inner">
                                 <input
-                                    className="add-column-form__input"
+                                    className="input add-column-form__input"
                                     type="text"
+                                    onKeyUp={this.keyUpHandler.bind(this)}
                                     ref={(input) => {
                                         this.addColumnInput = input
                                     }}
@@ -145,7 +168,8 @@ export default connect(
 
         return {
             data: currentBoard,
-            sortedColumnsIdMap: sortedColumnsIdMap
+            sortedColumnsIdMap: sortedColumnsIdMap,
+            colorbarStatus: state.appState.colorbarStatus
         };
     },
     dispatch => ({
@@ -154,6 +178,9 @@ export default connect(
         },
         setFavoriteStatus: (boardId) => {
             dispatch(setFavoriteStatusAction(boardId));
+        },
+        setColorbarStatus: status =>{
+            dispatch(setColorBarStatusAction(status));
         }
     })
 )(Board);

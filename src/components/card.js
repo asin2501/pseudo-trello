@@ -8,14 +8,16 @@ import '../styles/blocks/card.css';
 import classNames from 'classnames';
 import cardCords from '../utils/card-cords';
 
-class Card extends Component  {
+class Card extends Component {
     render() {
-        let cardClasses =  classNames("card", {"card--dragged": (!this.props.isDragged && this.props.draggedCard && this.props.data.id === this.props.draggedCard.cardId)});
+        let cardClasses = classNames("card", {"card--dragged": (!this.props.isDragged && this.props.draggedCard && this.props.data.id === this.props.draggedCard.cardId)});
         return (
             <div
                 onMouseDown={this.mouseDownHandler.bind(this)}
                 className={cardClasses}
-                ref={(element)=>{this.cardElement = element}}
+                ref={(element) => {
+                    this.cardElement = element
+                }}
             >
                 <div className="card__inner">
                     <h5 className="card__title">
@@ -36,7 +38,7 @@ class Card extends Component  {
 
     componentWillUnmount() {
         if (!this.props.isDragged) {
-            cardCords.remove(this.props.data.columnId ,this.props.data.id);
+            cardCords.remove(this.props.data.columnId, this.props.data.id);
         }
     }
 

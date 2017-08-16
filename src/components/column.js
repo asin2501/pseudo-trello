@@ -28,11 +28,13 @@ class Column extends Component {
 
     addCard() {
         let cardTitle = this.addCardInput.value.trim();
+        let t = this.addCardInput.value;
+        // debugger;
         if (cardTitle) {
             this.props.addCard(this.props.data.id, cardTitle);
             this.addCardInput.value = '';
-
         } else {
+            this.addCardInput.value = '';
             this.addCardInput.focus();
         }
     }
@@ -46,19 +48,19 @@ class Column extends Component {
         this.setState({addCardFromShowed: !this.state.addCardFromShowed});
     }
 
-    componentDidUpdate () {
+    componentDidUpdate() {
         if (this.state.addCardFromShowed) {
             this.addCardInput.focus();
         }
         this.sendColumnCord();
 
-        if(this.props.cards.length === 0){
+        if (this.props.cards.length === 0) {
             cardCords.resetColumn(this.props.data.id);
         }
     }
 
     componentDidMount() {
-       this.sendColumnCord();
+        this.sendColumnCord();
     }
 
     componentWillUnmount() {
@@ -81,10 +83,18 @@ class Column extends Component {
         this.props.setDraggedColumn(this.props.data.id, e.clientX, e.clientY, elemRect.left - e.clientX, elemRect.top - e.clientY);
     }
 
+    keyUpHandler(e){
+        if(e.keyCode === 27){
+            this.setState({addCardFromShowed: false});
+        }else if(e.keyCode === 13){
+            this.addCard();
+        }
+    }
 
     render() {
         let formClasses = classNames("add-card-form", {"add-card-form--showed": this.state.addCardFromShowed});
-        let addCadrdBottomClasses = classNames("column__add-card-bottom", {"column__add-card-bottom--hidden": this.state.addCardFromShowed});
+        // let addCadrdBottomClasses = classNames("column__add-card-bottom", {"column__add-card-bottom--hidden": this.state.addCardFromShowed});
+        let addCadrdBottomClasses = classNames("column__add-card-bottom");
         let columnClasses = classNames("column", {"column--dragged-wrap": (!this.props.isDragged && this.props.data.id === this.props.draggedColumn.columnId)});
 
 
@@ -94,10 +104,17 @@ class Column extends Component {
                 ref={element => this.columnElement = element}>
                 <div className="column__inner">
                     <h4 className="column__title" onMouseDown={this.onMouseDownHandler.bind(this)}>
-                        { this.props.data.name }
+                        <div className="column__title-inner">
+                            { this.props.data.name }
+                        </div>
                     </h4>
+                    <button
+                        className="btn-close column__close"
+                        onClick={this.remove.bind(this)}
+                    >x
+                    </button>
                     <Scrollbars
-                        style={{width: '100%', maxHeight: 'calc(100vh - 200px)',}}
+                        style={{width: '100%'}}
                         autoHeight
                         autoHeightMax={'calc(100vh - 250px)'}>
                         <div
@@ -108,16 +125,19 @@ class Column extends Component {
                         <textarea
                             // onBlur={this.toggleCardForm.bind(this)}
                             className="add-card-form__input"
+                            onKeyUp={this.keyUpHandler.bind(this)}
                             ref={(input) => {
                                 this.addCardInput = input
                             }}/>
                                 <div>
                                     <button className="btn" onClick={this.addCard.bind(this)}>addCard</button>
-                                    <button onClick={this.toggleCardForm.bind(this)} className="btn-close add-column-form_btn">x
+                                    <button
+                                        onClick={this.toggleCardForm.bind(this)}
+                                        className="btn-close add-column-form_btn"
+                                    >x
                                     </button>
                                 </div>
                             </div>
-                            <button onClick={this.remove.bind(this)}>x</button>
                         </div>
                     </Scrollbars>
                     <button onClick={this.toggleCardForm.bind(this)} className={addCadrdBottomClasses}>Add card</button>

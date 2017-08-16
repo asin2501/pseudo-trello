@@ -19,6 +19,11 @@
     padding:10px;
 }
 
+.sidebar__scroll-container .scroll-inner{
+    padding-right:15px;
+    box-sizing: border-box;
+}
+
 .sidebar__title{
     margin-bottom:8px;
 }
@@ -36,6 +41,7 @@
     background-color: rgba(0, 0, 0, 0.02);
     box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 .sidebar__input--active{
