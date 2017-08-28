@@ -35,11 +35,6 @@ export  default function (columns = columnsInitialState, action) {
 }
 
 function changeCardPos(columns, action) {
-    // 1. remove id form old column
-    // 2. add id to new column
-    //cardId, newColumnId, newColumnOrder
-    //todo: this do not work
-
     let oldColumnId = store.getState().cards[action.payload.cardId].columnId;
 
     if(action.payload.newColumnId === oldColumnId){

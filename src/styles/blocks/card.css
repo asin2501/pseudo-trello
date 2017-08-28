@@ -8,6 +8,7 @@
     cursor: pointer;
     border-top: 1px solid #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    white-space: normal;
 }
 
 .card:hover {
@@ -35,5 +36,6 @@
     margin-top: 0;
     font-size: 14px;
     margin-bottom: 5px;
+    line-height:1.4;
     /*font-weight:normal;*/
 }

@@ -73,7 +73,6 @@ class DraggedCard extends Component {
 
             if (this.props.card.columnId !== newColumnId || newOrder !== this.props.card.order) {
                 this.props.changeCardPos(this.props.cardId, newColumnId, newOrder);
-                // TODO: set id adn order
             }
 
             this.setState({x: event.pageX, y: event.pageY});

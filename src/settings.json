@@ -1,5 +1,5 @@
 {
-    "boardColor" : "rgb(94, 165, 188)",
+    "boardColor" : "rgb(103, 65, 114)",
     "avaliableBoardColors":[
         {
             "name":1,
@@ -9,7 +9,7 @@
             "rgb":"#34495e"
         },{
             "name":3,
-            "rgb":"#d35400"
+            "rgb":"rgb(217, 147, 101)"
         },{
             "name":4,
             "rgb":"#f39c12"
@@ -21,7 +21,7 @@
             "rgb":"#336E7B"
         },{
             "name":7,
-            "rgb":"#1BA39C"
+            "rgb":"rgb(133, 166, 53)"
         },{
             "name":8,
             "rgb":"#D24D57"

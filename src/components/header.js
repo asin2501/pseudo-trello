@@ -3,8 +3,8 @@
  */
 import React, {Component} from 'react';
 import './../styles/blocks/header.css';
-import emitter from './emitter';
 import {connect} from 'react-redux';
+import {setAddBoardPopupStateAction} from '../action-creators/app-state';
 import store from '../store';
 
 import {setSideBarStatusAction, setColorBarStatusAction} from '../action-creators/app-state';
@@ -20,9 +20,8 @@ class Header extends Component {
         this.props.setSidebarStatus(!this.props.sidebarStatus);
     }
 
-
     openAddBoardPopup() {
-        emitter.emit('addToCartPopupOpen');
+        this.props.openAddBoardPopup();
     }
 
     render() {
@@ -61,8 +60,7 @@ export default connect(
         sidebarStatus: state.appState.sidebarStatus
     }),
     dispatch => ({
-        setSidebarStatus: status =>{
-            dispatch(setSideBarStatusAction(status));
-        }
+        setSidebarStatus: status => dispatch(setSideBarStatusAction(status)),
+        openAddBoardPopup: () => dispatch(setAddBoardPopupStateAction(true))
     })
 )(Header);

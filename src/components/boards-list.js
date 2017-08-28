@@ -1,21 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import emitter from './emitter';
 import '../styles/blocks/board-list.css';
 import {hashHistory} from 'react-router';
+import {setAddBoardPopupStateAction} from '../action-creators/app-state';
 import {removeBoardAction} from '../action-creators/boards';
 
-// const BoardList = () => {
-//     <div>{this.props.boards.map((item) => {
-//         return(<div className="{item.id}">{item.name}</div>)
-//     })}</div>
-// }
 
 class BoardList extends Component {
     addBoardClick() {
-        // console.log('try emit addToCartPopupOpen');
-        emitter.emit('addToCartPopupOpen');
+        this.props.openAddBoardPopup();
     }
 
     move(id, e) {
@@ -91,6 +85,7 @@ export default connect(
     },
     dispatch => ({
         //addBoard: boardName => dispatch({type: 'ADD_BOARD', payload: boardName})
-        removeBoard: boardID => dispatch(removeBoardAction(boardID))
+        removeBoard: boardID => dispatch(removeBoardAction(boardID)),
+        openAddBoardPopup: () => dispatch(setAddBoardPopupStateAction(true))
     })
 )(BoardList);

@@ -14,7 +14,7 @@ import {Provider} from 'react-redux';
 import store from './store';
 import BoardsList from './components/boards-list';
 import Board from './components/board';
-import Card from './components/card';
+import FullCard from './components/fullCard';
 
 
 
@@ -28,7 +28,7 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 <IndexRoute component={BoardsList}/>
                 <Route path="board/:boardId" component={Board}>
-                    <Route path=":cardId" component={Card}/>
+                    <Route path=":cardId" component={FullCard}/>
                 </Route>
             </Route>
         </Router>

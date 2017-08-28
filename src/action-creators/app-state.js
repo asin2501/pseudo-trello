@@ -8,7 +8,14 @@ const UNSET_DRAGGED_CARD = 'UNSET_DRAGGED_CARD';
 const SET_SIDEBAR_STATUS = 'SET_SIDEBAR_STATUS';
 const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
 const SET_COLOLORBAR_STATUS = 'SET_COLOLORBAR_STATUS';
+const SET_ADDBOARD_POPUP_STATE = 'SET_ADDBOARD_POPUP_STATE';
 
+export function setAddBoardPopupStateAction(status){
+    return {
+        type: SET_ADDBOARD_POPUP_STATE,
+        payload: status
+    }
+}
 export function setColorBarStatusAction(status){
     return {
         type: SET_COLOLORBAR_STATUS,

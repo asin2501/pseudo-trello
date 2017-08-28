@@ -9,11 +9,15 @@ let appInitialState = {
     draggedCard:false,
     sidebarStatus:false,
     colorbarStatus:false,
+    addBoardPopupOpened:false,
     searchText:""
 };
 
 export  default function (appState = appInitialState, action) {
     switch (action.type) {
+        case 'SET_ADDBOARD_POPUP_STATE':
+            return setAddBoardPopupState(appState, action);
+            break;
         case 'SET_DRAGGED_COLUMN':
             return setDraggedColumn(appState, action);
             break;
@@ -38,6 +42,13 @@ export  default function (appState = appInitialState, action) {
         default:
             return appState;
     }
+}
+
+function setAddBoardPopupState(appState, action){
+    let newAppState = helpers.copyObject(appState);
+
+    newAppState.addBoardPopupOpened = action.payload;
+    return newAppState;
 }
 
 function setColorbarStatus(appState, action){

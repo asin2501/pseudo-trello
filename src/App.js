@@ -6,51 +6,39 @@ import {connect} from 'react-redux';
 import Header from "./components/header";
 import Footer from "./components/footer";
 import {Link} from 'react-router'
-import Popup from "./components/popup";
+import AddBoardPopup from "./components/addBoardPopup";
 import AddBoardForm from "./components/addBoardForm";
 import Sidebar from "./components/sidebar";
 import './styles/blocks/picto-button.css';
+import {setAddBoardPopupStateAction} from './action-creators/app-state';
 
-import emitter from './components/emitter';
 
-const addBoardPopupProps = {
-    header: 'Add board',
-    openEvent: 'addToCartPopupOpen',
-    closeEvent: 'closePopups'
-};
+
 
 class App extends Component {
     componentDidMount() {
-        console.log('222');
         document.onkeyup = this.keyUpHandler.bind(this);
     }
 
     keyUpHandler(e) {
-        console.log('keyUp');
         if (e.keyCode === 27) {
-            emitter.emit('closePopups');
+            this.props.closeAddBoardPopup();
         }
     }
 
     render() {
-        // console.log(this.props);
         return (
             <div className="app__inner">
                 <Header/>
-                {/*<input ref="input" type="text"/>*/}
-                {/*<button onClick={this.clickHandler.bind(this)}>Add</button>*/}
-                {/*<div>{*/}
-                {/*this.props.state.boards.map((board, index) => <span key={index}>{board.name}</span>)*/}
-                {/*}</div>*/}
                 <div className="content">
                     <div className="content__inner">
                         {this.props.children}
                     </div>
                 </div>
                 <Footer/>
-                <Popup settings={addBoardPopupProps}>
+                <AddBoardPopup>
                     <AddBoardForm/>
-                </Popup>
+                </AddBoardPopup>
                 <Sidebar/>
 
             </div>
@@ -68,5 +56,6 @@ export default connect(
     state => ({state: state}),
     dispatch => ({
         addBoard: boardName => dispatch({type: 'ADD_BOARD', payload: boardName}),
+        closeAddBoardPopup: () => dispatch(setAddBoardPopupStateAction(false))
     })
 )(App);

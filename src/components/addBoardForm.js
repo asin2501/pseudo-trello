@@ -4,7 +4,9 @@
 import React, {Component} from 'react';
 import {addBoardAction} from '../action-creators/boards';
 import {connect} from 'react-redux';
-import emitter from './emitter';
+import store from '../store';
+import {hashHistory} from 'react-router';
+import {setAddBoardPopupStateAction} from '../action-creators/app-state';
 
 import '../styles/blocks/add-board-form__btnrow.css';
 
@@ -12,16 +14,17 @@ class AddBoardForm extends Component {
     clickHandler() {
         let boardName = this.addBoardInput.value.trim();
         if (boardName) {
+            let oldBoardsIdList = store.getState().boards.boardIdList;
             this.props.addBoard(boardName);
+            let newBoardsIdList = store.getState().boards.boardIdList;
+            let newBoardId = newBoardsIdList.filter(item => !oldBoardsIdList.includes(item))[0];
             this.addBoardInput.value = '';
+            hashHistory.push(`/board/${newBoardId}`);
+            this.props.closePopup();
         }
     }
 
     keyUpHandler(e) {
-        // if (e.keyCode === 27) {
-        //     emitter.emit('closePopups');
-        //     // this.setState({addColumnForm: false});
-        // }
         if (e.keyCode === 13) {
             this.clickHandler();
         }
@@ -50,6 +53,7 @@ class AddBoardForm extends Component {
 export default connect(
     null,
     dispatch => ({
-        addBoard: boardName => dispatch(addBoardAction(boardName))
+        addBoard: boardName => dispatch(addBoardAction(boardName)),
+        closePopup: state => dispatch(setAddBoardPopupStateAction(false))
     })
 )(AddBoardForm);

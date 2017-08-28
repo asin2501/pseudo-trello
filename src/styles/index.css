@@ -14,9 +14,10 @@ html, body, .app, .app__inner {
 
 .app__inner {
     position: relative;
-    background-color: #5EA5BC;
+    background-color: rgb(103, 65, 114);
     box-sizing: border-box;
 }
+
 
 footer{
     display: none;

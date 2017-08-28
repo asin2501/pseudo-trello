@@ -44,7 +44,6 @@ function changeCardPos(cards, action) {
     let newColumnCardIdMap = store.getState().columns[newColumnId].cards;
 
     if (newColumnId === oldColumnId) {
-        //todo:change only order, not id
         oldColumnCardIdMap.forEach((cardId) => {
             let card = newCards[cardId];
             if (oldOrder > action.payload.newOrder) {
@@ -59,7 +58,6 @@ function changeCardPos(cards, action) {
         });
         newCards[cardId].order = newOrder;
     } else {
-        //todo: this do not work
         newColumnCardIdMap.forEach((cardId) => {
             let card = newCards[cardId];
             if (card.order >= newOrder) {

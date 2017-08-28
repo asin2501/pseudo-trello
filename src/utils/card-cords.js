@@ -18,7 +18,7 @@ class allColumnCords {
             this.columnList[columnId].set(id, order, y);
         }
 
-        console.log(this.columnList);
+        // console.log(this.columnList);
     }
 
     remove(columnId, id) {
