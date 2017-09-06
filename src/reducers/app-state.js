@@ -10,7 +10,9 @@ let appInitialState = {
     sidebarStatus:false,
     colorbarStatus:false,
     addBoardPopupOpened:false,
-    searchText:""
+    searchText:"",
+    columnForm: null,
+    cardForm: null
 };
 
 export  default function (appState = appInitialState, action) {
@@ -20,6 +22,12 @@ export  default function (appState = appInitialState, action) {
             break;
         case 'SET_DRAGGED_COLUMN':
             return setDraggedColumn(appState, action);
+            break;
+        case 'SET_COLUMN_FORM_STATE':
+            return setColumnFormState(appState, action);
+            break;
+        case 'SET_CARD_FORM_STATE':
+            return setCardFormState(appState, action);
             break;
         case 'UNSET_DRAGGED_COLUMN':
             return unsetDraggedColumn(appState, action);
@@ -42,6 +50,32 @@ export  default function (appState = appInitialState, action) {
         default:
             return appState;
     }
+}
+
+function setColumnFormState(appState, action){
+    let newAppState = helpers.copyObject(appState);
+
+    if(isFinite(action.payload)){
+        newAppState.columnForm = action.payload;
+        newAppState.cardForm = null;
+    }else{
+        newAppState.columnForm = null;
+    }
+
+    return newAppState;
+}
+
+function setCardFormState(appState, action){
+    let newAppState = helpers.copyObject(appState);
+
+    if(isFinite(action.payload)){
+        newAppState.cardForm = action.payload;
+        newAppState.columnForm = null;
+    }else{
+        newAppState.cardForm = null;
+    }
+
+    return newAppState;
 }
 
 function setAddBoardPopupState(appState, action){

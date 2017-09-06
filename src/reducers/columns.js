@@ -19,6 +19,8 @@ export  default function (columns = columnsInitialState, action) {
     switch (action.type) {
         case 'ADD_COLUMN':
             return addColumn(columns, action);
+        case 'REMOVE_CARD':
+            return removeCard(columns, action);
         case 'CHANGE_CARD_POS':
             return changeCardPos(columns, action);
         case 'REMOVE_COLUMN':
@@ -101,34 +103,6 @@ function removeColumn(columns, action) {
     return newColumns;
 }
 
-// function updateColumnOrder(columns, action) {
-//     let movedColumn = columns[action.payload.columnId];
-//     if (movedColumn.order === action.payload.newOrder) {
-//         return columns;
-//     }
-//     let newColumns = helpers.copyObject(columns);
-//     let columnsIdMap = store.getState().boards.boards[movedColumn.boardId].columns;
-//
-//     columnsIdMap.forEach((columnId) => {
-//         let column = newColumns[columnId];
-//
-//
-//         if (movedColumn.order > action.payload.newOrder) {
-//             if (column.order >= action.payload.newOrder && column.order <= movedColumn.order) {
-//                 column.order += 1;
-//             }
-//         } else {
-//             if (column.order <= action.payload.newOrder && column.order >= movedColumn.order) {
-//                 column.order -= 1;
-//             }
-//         }
-//
-//     });
-//
-//     newColumns[action.payload.columnId].order = action.payload.newOrder;
-//
-//     return newColumns;
-// }
 
 function updateColumnOrder(columns, action) {
     let movedColumn = columns[action.payload.columnId];
@@ -151,5 +125,15 @@ function updateColumnOrder(columns, action) {
     newColumns[action.payload.columnId].order = action.payload.newOrder;
 
     // return columns;
+    return newColumns;
+}
+
+
+function removeCard(columns, action) {
+    let columnId = store.getState().cards[action.payload].columnId;
+    let newColumns = helpers.copyObject(columns);
+
+    helpers.removeElementFromArray(newColumns[columnId].cards, action.payload);
+
     return newColumns;
 }

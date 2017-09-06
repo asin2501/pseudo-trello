@@ -9,6 +9,23 @@ const SET_SIDEBAR_STATUS = 'SET_SIDEBAR_STATUS';
 const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
 const SET_COLOLORBAR_STATUS = 'SET_COLOLORBAR_STATUS';
 const SET_ADDBOARD_POPUP_STATE = 'SET_ADDBOARD_POPUP_STATE';
+const SET_COLUMN_FORM_STATE = 'SET_COLUMN_FORM_STATE';
+const SET_CARD_FORM_STATE = 'SET_CARD_FORM_STATE';
+
+
+export function setColumnFormStateAction(id){
+    return {
+        type: SET_COLUMN_FORM_STATE,
+        payload: id
+    }
+}
+
+export function setCardFormStateAction(id){
+    return {
+        type: SET_CARD_FORM_STATE,
+        payload: id
+    }
+}
 
 export function setAddBoardPopupStateAction(status){
     return {

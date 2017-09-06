@@ -28,7 +28,7 @@ class BoardList extends Component {
                 <div key={item.id} className="board-list__item-wrap">
                     <div onClick={this.move.bind(this, item.id)} className="board-list__item">
                         <div className="board-list__card">{item.name}</div>
-                        <button className="btn-close board-list__close" onClick={this.removeBoard.bind(this, item.id)}>x</button>
+                        <button className="btn-remove board-list__close" onClick={this.removeBoard.bind(this, item.id)}>x</button>
                     </div>
                 </div>
             )

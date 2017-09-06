@@ -13,7 +13,7 @@ import Colorbar from "./colorbar";
 // import ScrollArea from 'react-scrollbar';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {setFavoriteStatusAction} from '../action-creators/boards';
-import {setSideBarStatusAction, setColorBarStatusAction} from '../action-creators/app-state';
+import {setSideBarStatusAction, setColorBarStatusAction, setColumnFormStateAction} from '../action-creators/app-state';
 import columnCords from '../utils/column-cords';
 
 import '../styles/blocks/scroll-component.css';
@@ -25,14 +25,12 @@ import '../styles/blocks/add-column-form.css'
 class Board extends Component {
     constructor(props) {
         super(props);
-        this.state = {addColumnForm: false};
 
         this.toggleColorbar = this.toggleColorbar.bind(this);
     }
 
     componentWillUnmount() {
         columnCords.reset();
-        console.log(columnCords);
     }
 
     addBoardClickHandler() {
@@ -41,10 +39,6 @@ class Board extends Component {
             this.props.addColumn(columnName, this.props.data.id);
             this.addColumnInput.value = '';
         }
-    }
-
-    xomponentWillUnmount() {
-
     }
 
     renderColumns() {
@@ -58,12 +52,16 @@ class Board extends Component {
     }
 
     toggleAddCartForm() {
-        this.setState({addColumnForm: !this.state.addColumnForm});
+        if(this.props.columnForm){
+            this.props.setColumnFormState(false);
+        }else{
+            this.props.setColumnFormState(this.props.data.id);
+        }
     }
 
     keyUpHandler(e) {
         if (e.keyCode === 27) {
-            this.setState({addColumnForm: false});
+            this.props.setColumnFormState(false);
         } else if (e.keyCode === 13) {
             this.addBoardClickHandler();
         }
@@ -75,7 +73,7 @@ class Board extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.addColumnForm) {
+        if (this.props.columnForm) {
             this.addColumnInput.focus();
         }
         // if(prevProps.sortedColumnsIdMap.length !== this.props.sortedColumnsIdMap.length){
@@ -88,7 +86,7 @@ class Board extends Component {
 
     render() {
         // console.log(222);
-        let addColumnFormClasses = classNames('board__add-column-form add-column-form', {'add-column-form--showed': this.state.addColumnForm});
+        let addColumnFormClasses = classNames('board__add-column-form add-column-form', {'add-column-form--showed': this.props.columnForm});
         let favoriteIconClasses = classNames('fa', {'fa-star-o': !this.props.data.favorite, 'fa-star': this.props.data.favorite});
         // let addColumnFormClasses = classNames('board__add-column-form add-column-form', 'add-column-form--showed');
 
@@ -169,7 +167,8 @@ export default connect(
         return {
             data: currentBoard,
             sortedColumnsIdMap: sortedColumnsIdMap,
-            colorbarStatus: state.appState.colorbarStatus
+            colorbarStatus: state.appState.colorbarStatus,
+            columnForm: +ownProps.params.boardId === state.appState.columnForm
         };
     },
     dispatch => ({
@@ -181,7 +180,8 @@ export default connect(
         },
         setColorbarStatus: status =>{
             dispatch(setColorBarStatusAction(status));
-        }
+        },
+        setColumnFormState: (id) => dispatch(setColumnFormStateAction(id))
     })
 )(Board);
 

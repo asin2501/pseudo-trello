@@ -12,14 +12,16 @@ import Card from './card';
 import classNames from 'classnames';
 import columnCords from '../utils/column-cords';
 import cardCords from '../utils/card-cords';
+import {setCardFormStateAction} from '../action-creators/app-state';
+
 // import ScrollArea from 'react-scrollbar';
 // import ReactScrollbar from 'react-scrollbar-js';
 import {Scrollbars} from 'react-custom-scrollbars';
 
 class Column extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {addCardFromShowed: false};
+    shouldComponentUpdate(nextProps){
+        // console.log();
+        return JSON.stringify(this.props) !== JSON.stringify(nextProps)
     }
 
     remove() {
@@ -44,12 +46,15 @@ class Column extends Component {
     }
 
     toggleCardForm() {
-
-        this.setState({addCardFromShowed: !this.state.addCardFromShowed});
+        if(this.props.cardForm){
+            this.props.setCardFormState(false);
+        }else{
+            this.props.setCardFormState(this.props.data.id);
+        }
     }
 
     componentDidUpdate() {
-        if (this.state.addCardFromShowed) {
+        if (this.props.cardForm) {
             this.addCardInput.focus();
         }
         this.sendColumnCord();
@@ -85,14 +90,15 @@ class Column extends Component {
 
     keyUpHandler(e){
         if(e.keyCode === 27){
-            this.setState({addCardFromShowed: false});
+            // this.setState({addCardFromShowed: false});
+            this.props.setCardFormState(false);
         }else if(e.keyCode === 13){
             this.addCard();
         }
     }
 
     render() {
-        let formClasses = classNames("add-card-form", {"add-card-form--showed": this.state.addCardFromShowed});
+        let formClasses = classNames("add-card-form", {"add-card-form--showed": this.props.cardForm});
         // let addCadrdBottomClasses = classNames("column__add-card-bottom", {"column__add-card-bottom--hidden": this.state.addCardFromShowed});
         let addCadrdBottomClasses = classNames("column__add-card-bottom");
         let columnClasses = classNames("column", {"column--dragged-wrap": (!this.props.isDragged && this.props.data.id === this.props.draggedColumn.columnId)});
@@ -109,7 +115,7 @@ class Column extends Component {
                         </div>
                     </h4>
                     <button
-                        className="btn-close column__close"
+                        className="btn-remove column__close"
                         onClick={this.remove.bind(this)}
                     >x
                     </button>
@@ -156,13 +162,15 @@ export default connect(
         return {
             data: state.columns[ownProps.id],
             cards: sortedCards,
-            draggedColumn: state.appState.draggedColumn
+            draggedColumn: state.appState.draggedColumn,
+            cardForm: ownProps.id === state.appState.cardForm
         }
     },
     dispatch => ({
         //addBoard: boardName => dispatch({type: 'ADD_BOARD', payload: boardName})
         removeColumn: columnID => dispatch(removeColumnAction(columnID)),
         addCard: (columnId, tile) => dispatch(addCardAction(columnId, tile)),
-        setDraggedColumn: (columnId, x, y, offsetX, offsetY) => dispatch(setDraggedColumn(columnId, x, y, offsetX, offsetY))
+        setDraggedColumn: (columnId, x, y, offsetX, offsetY) => dispatch(setDraggedColumn(columnId, x, y, offsetX, offsetY)),
+        setCardFormState: (id) => dispatch(setCardFormStateAction(id))
     })
 )(Column);

@@ -23,6 +23,12 @@ export  default function (cards = cardsInitialState, action) {
             return addCard(cards, action);
         case 'REMOVE_BOARD':
             return removeBoard(cards, action);
+        case 'CHANGE_CARD_DESCRIPTION':
+            return changeCardDescription(cards, action);
+        case 'CHANGE_CARD_TITLE':
+            return changeCardTitle(cards, action);
+        case 'REMOVE_CARD':
+            return removeCard(cards, action);
         case 'REMOVE_COLUMN':
             return removeColumn(cards, action);
         case 'CHANGE_CARD_POS':
@@ -113,3 +119,31 @@ function removeColumn(cards, action) {
 
     return newCards;
 }
+
+function removeCard(cards, action) {
+    let newCards = helpers.copyObject(cards);
+
+    delete newCards[action.payload];
+
+    for (let cardIndex in newCards) {
+        if (newCards[cardIndex].order > cards[action.payload].id) {
+            newCards[cardIndex].order--;
+        }
+    }
+
+    return newCards;
+}
+
+
+function changeCardTitle(cards, action) {
+    let newCards = helpers.copyObject(cards);
+    newCards[action.payload.id].title = action.payload.newTitle;
+    return newCards;
+}
+
+function changeCardDescription(cards, action) {
+    let newCards = helpers.copyObject(cards);
+    newCards[action.payload.id].description = action.payload.newDescription;
+    return newCards;
+}
+

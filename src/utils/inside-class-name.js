@@ -6,8 +6,12 @@ export default insideClassName;
 function insideClassName(el, className) {
 
     let parent = el.parentNode;
+
+
+
     while(true){
         if(parent){
+
             if(parent.className && parent.className.indexOf(className) !== -1){
                 return true;
             }
